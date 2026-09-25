@@ -1,0 +1,7 @@
+kokoro-onnx>=0.4
+sherpa-onnx>=1.10
+soundfile
+numpy
+scipy
+imageio-ffmpeg
+pillow

@@ -5,7 +5,11 @@
   "description": "Remotion engine and episodes for the channel",
   "scripts": {
     "studio": "remotion studio episodes/01-finland/remotion/index.ts",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "setup": "pip install -r requirements.txt && python3 tools/setup_models.py",
+    "sample": "python3 tools/pipeline.py sample",
+    "episode": "python3 tools/pipeline.py episode",
+    "thumbs": "node tools/render.mjs episodes/01-finland thumbs episodes/01-finland/out"
   },
   "dependencies": {
     "@fontsource/archivo": "^5.3.0",

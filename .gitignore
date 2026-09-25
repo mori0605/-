@@ -40,3 +40,8 @@ episodes/*/out/*.mp4
 episodes/*/audio_sample/*.wav
 episodes/*/audio_sample/paragraphs/
 episodes/*/out/*.wav
+
+# Local models (tools/setup_models.py)
+models/
+episodes/*/out/*_raw.mp4
+models

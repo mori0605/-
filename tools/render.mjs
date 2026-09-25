@@ -8,12 +8,13 @@ import {bundle} from '@remotion/bundler';
 import {renderMedia, renderStill, selectComposition} from '@remotion/renderer';
 
 const [, , epDir, mode, out, a, b] = process.argv;
-const browserExecutable = '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
+// Optional: point at an existing Chrome/Chromium. If unset, Remotion downloads its own headless shell.
+const browserExecutable = process.env.REMOTION_BROWSER || null;
 const serveUrl = await bundle({
   entryPoint: path.resolve(epDir, 'remotion/index.ts'),
   publicDir: path.resolve(epDir, 'audio'),
 });
-const opts = {serveUrl, browserExecutable, chromiumOptions: {gl: 'swiftshader'}};
+const opts = {serveUrl, browserExecutable, chromiumOptions: process.env.REMOTION_GL ? {gl: process.env.REMOTION_GL} : {}};
 
 if (mode === 'video') {
   const composition = await selectComposition({...opts, id: process.env.COMP || 'Episode'});
