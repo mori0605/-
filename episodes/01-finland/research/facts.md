@@ -103,3 +103,7 @@ Retrieved: 2026-09-25.
 | F-DERIV-YEARS | Derived: 79 ÷ 22 ≈ 3.6 → **"roughly three years or more of learning"**. The yardstick is approximate, so say "roughly" | calculation |
 | F-COHORT | School-entry year = PISA year − 8 (test at 15, school entry at 7; approximate) | derived from F-FEAT-AGE |
 | F-FIN-IMM-3 | On average, immigrant-background students in Finland score below their peers | Yle https://yle.fi/a/74-20115176 ; Finnish Government (PISA 2022) |
+| F-COHORT-2006 | 2006 test-takers: born ≈1991 (2006 − 15), school entry ≈1998 (2006 − 8) | derived from F-COHORT |
+| F-DECENT-1990s | "1990s: the rules change" = inspections and pre-approval of materials abolished (1980s–90s); local curricula from 1994 | F-DECENT |
+| F-EST-GAP-2006 | Estonia–Finland maths gap in 2006 = 548 − 515 = 33 | derived |
+| F-GAP-2025 | Finland − OECD, 2025: maths +6, reading +13, science +22 | derived from F-OECD-2025 and F-FIN-*-2025 |
