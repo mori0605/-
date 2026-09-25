@@ -31,3 +31,9 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Video pipeline
+node_modules/
+episodes/*/audio/*.wav
+episodes/*/audio/paragraphs/
+episodes/*/out/*.mp4

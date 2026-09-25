@@ -1,0 +1,10 @@
+asset,author,license,url,notes
+Narration voice (Kokoro-82M v1.0, voice bf_emma),hexgrad,Apache-2.0,https://github.com/hexgrad/kokoro,Synthetic voice (TTS). ONNX build via thewh1teagle/kokoro-onnx (MIT)
+kokoro-onnx runtime,thewh1teagle,MIT,https://github.com/thewh1teagle/kokoro-onnx,
+Word alignment model (sherpa-onnx zipformer-en-2023-06-26),k2-fsa / Next-gen Kaldi,Apache-2.0,https://github.com/k2-fsa/sherpa-onnx,Used for word timestamps (forced-alignment role)
+Background music (ambient pad),Generated in code for this channel (tools/make_bgm.py),Original work,,No third-party music used
+Country boundaries (world-atlas 50m),Natural Earth via Mike Bostock's world-atlas,Public domain (Natural Earth) / ISC (package),https://github.com/topojson/world-atlas,Basemap for World mode
+Source Serif 4,Adobe (Frank Grießhammer),SIL Open Font License 1.1,https://github.com/adobe-fonts/source-serif,Headlines
+Inter,Rasmus Andersson,SIL Open Font License 1.1,https://github.com/rsms/inter,Labels and numbers
+Remotion,Remotion AG,Remotion License (free for individuals and companies with up to 3 employees),https://www.remotion.dev/license,Video rendering; check eligibility before commercial use
+d3-geo / topojson-client,Mike Bostock et al.,ISC,https://github.com/d3/d3-geo,Map projection

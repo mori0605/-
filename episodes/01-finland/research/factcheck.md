@@ -52,3 +52,23 @@ Checks each provisional value in brief section 2 against primary sources. Retrie
   - Table numbers for every value
 - Heller Sahlgren's original text (cps.org.uk PDF)
 - OPH's reading-culture data, for a reading-habits chart
+
+---
+
+## 5. Decisions after STOP 1 (from 2026-09-25, delegated to Claude by the user)
+
+- **Approval to proceed:** the user said "随時君が修正して" (fix things as you go). Steps 2–5 went ahead without stopping, using the search-confirmed values. `needs_primary` values are excluded from the rendered data automatically (`tools/build_data.py`).
+- **Cohort chart:** fixed to "school-entry year ≈ PISA year − 8" (brief said −15).
+- **Values not used in the script:** "20th in maths in 2022" (unconfirmed), "maths fell in 41 countries/economies" (unconfirmed), all `needs_primary` values.
+- **Framing adjusted:**
+  - "Schools charged for visits" became "the national agency charges".
+  - "About 80 points" became "79 points" plus "very roughly three years" (79 ÷ 22 ≈ 3.6, rounded down conservatively).
+  - Heller Sahlgren's argument is shown as a **summary**, not a quote.
+  - Zhao's argument is shown as a **paraphrase**.
+- **Added facts** (facts.md §H): PISA 2000 reading rank 1; 2006 reading 547; school entry at 7; teachers need a master's degree; no national test; 1990s decentralisation; 2014 curriculum (introduced from 2016); reading for enjoyment; OPH analysis; Zhao; immigrant-background students' mean.
+
+## 6. Remaining risks before release
+
+1. Once oecd.org is reachable, check every `search_confirmed` value against the primary tables and add table numbers.
+2. Rank "joint 17th with Italy" and "12th in science" come from the Finnish Government and Helsinki Times. Check them against the OECD ranking table (ranks can include ties).
+3. The top-performer figures (2003 >23%, 2025 7%) come from Helsinki Times citing the national report. Confirm them in the primary table.

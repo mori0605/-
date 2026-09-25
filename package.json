@@ -1,0 +1,29 @@
+{
+  "name": "hidden-forces",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Remotion engine and episodes for the channel",
+  "scripts": {
+    "studio": "remotion studio episodes/01-finland/remotion/index.ts",
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/source-serif-4": "^5.3.0",
+    "@remotion/bundler": "^4.0.529",
+    "@remotion/cli": "^4.0.529",
+    "@remotion/renderer": "^4.0.529",
+    "d3-geo": "^3.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.529",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.1",
+    "@types/react": "^19.3.0",
+    "@types/topojson-client": "^3.1.5",
+    "typescript": "^7.0.2"
+  }
+}
