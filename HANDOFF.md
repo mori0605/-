@@ -17,9 +17,9 @@
   - Show data fast (`QuickLine` draws a whole chart in about 1.5 s; label only the start and end values). Don't read out every year's value.
   - Lots of motion: the camera never stops, and something happens every 2–3 s. But don't create motion by cutting scenes short.
   - Lead the eye: one focal point at a time, moved along to the next one.
-- **BGM**: the producer found the code-composed music (`tools/make_music.py`) "too lonely". Swap in ready-made music.
-  - Either the producer adds it, or you pick candidates from the YouTube Audio Library (Cinematic, Dramatic/Inspirational, slightly fast, piano + strings + light beat).
-  - Always export a no-BGM version as well (`pipeline.py` does this automatically).
+- **BGM (decided)**: **"Cinematic Documentary" by Lexin_Music (Pixabay)**. Download it from https://pixabay.com/music/beautiful-plays-cinematic-documentary-115669/ and save it as `episodes/01-finland/audio/music/cinematic-documentary-lexin.mp3`; `pipeline.py` then picks it up automatically.
+- **Old BGM note**: the producer found the code-composed music (`tools/make_music.py`) "too lonely", which is why ready-made music was chosen.
+- Always export a no-BGM version as well (`pipeline.py` does this automatically).
 
 ## Next steps (in order)
 
@@ -29,7 +29,7 @@
    - Use the `Caption`, `QuickLine`, `Camera` and `CircleMarker` components (in `engine/components/`).
    - Update the storyboard: `python3 tools/make_storyboard.py episodes/01-finland` (this also checks pacing).
    - Check `Episode.tsx`: chapter cards, transitions.
-4. **Decide on BGM**, then run `python3 tools/pipeline.py episode --bgm <music file>`.
+4. **BGM is decided** (see above). Download the file to the path above, then run `python3 tools/pipeline.py episode`.
 5. Final check: `out/qa_checklist.md` (CLAUDE.md §12), thumbnails (`npm run thumbs`, restyled for the new fonts), `out/youtube.md` (update the chapter times).
 6. Shorts ×3 (proposal in `out/shorts.md`).
 

@@ -56,6 +56,6 @@ In the 2000s, Finland had the most admired school system on Earth. Delegations f
 - Helsinki Times, PISA 2025: https://www.helsinkitimes.fi/themes/themes/education/29247-finland-s-pisa-scores-fall-again-in-reading-and-maths.html
 
 **Credits**
-Narration: synthetic voice (Kokoro TTS, Apache-2.0). Music: original, generated for this channel. Maps: Natural Earth (public domain). Fonts: Source Serif 4, Inter (OFL). Rendered with Remotion.
+Narration: synthetic voice (Kokoro TTS, Apache-2.0). Music: "Cinematic Documentary" by Lexin_Music (Pixabay). Maps: Natural Earth (public domain). Fonts: Source Serif 4, Inter (OFL). Rendered with Remotion.
 
 *This video uses a synthetic (AI-generated) narration voice. No AI-generated images or video are used; all charts and maps are built from code and public data.*

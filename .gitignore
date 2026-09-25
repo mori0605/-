@@ -46,3 +46,5 @@ models/
 episodes/*/out/*_raw.mp4
 models
 __pycache__/
+episodes/*/audio/music/*.mp3
+episodes/*/audio/music/*.wav

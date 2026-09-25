@@ -39,8 +39,9 @@ The output lands in `episodes/01-finland/out/`:
 - `episode01_finland_nobgm.mp4`: narration only, for adding your own BGM in an editor
 - `episode01_finland.srt`: subtitles
 
+**BGM**: this episode uses "Cinematic Documentary" by Lexin_Music (Pixabay). Download it from https://pixabay.com/music/beautiful-plays-cinematic-documentary-115669/ and save it as `episodes/01-finland/audio/music/cinematic-documentary-lexin.mp3`; it is then used automatically.
 When you pass your own BGM, it is looped or trimmed to the video length, set 19 dB below the narration, and faded in and out.
-With `--bgm auto` (the default), `tools/make_music.py` composes a piece in code instead.
+With `--bgm auto`, `tools/make_music.py` composes a piece in code instead.
 
 ## Layout
 

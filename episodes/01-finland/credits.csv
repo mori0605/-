@@ -2,7 +2,7 @@ asset,author,license,url,notes
 Narration voice (Kokoro-82M v1.0, voice bf_emma),hexgrad,Apache-2.0,https://github.com/hexgrad/kokoro,Synthetic voice (TTS). ONNX build via thewh1teagle/kokoro-onnx (MIT)
 kokoro-onnx runtime,thewh1teagle,MIT,https://github.com/thewh1teagle/kokoro-onnx,
 Word alignment model (sherpa-onnx zipformer-en-2023-06-26),k2-fsa / Next-gen Kaldi,Apache-2.0,https://github.com/k2-fsa/sherpa-onnx,Used for word timestamps (forced-alignment role)
-Background music (investigative underscore),Composed in code for this channel (tools/make_music.py),Original work,,No third-party music or samples used
+Background music: Cinematic Documentary,Lexin_Music (Aleksey Chistilin),Pixabay Content License (free for commercial use; no attribution required),https://pixabay.com/music/beautiful-plays-cinematic-documentary-115669/,Chosen by the producer; kept out of git (redistribution of the file is not allowed)
 Country boundaries (world-atlas 50m),Natural Earth via Mike Bostock's world-atlas,Public domain (Natural Earth) / ISC (package),https://github.com/topojson/world-atlas,Basemap for World mode
 Source Serif 4,Adobe (Frank Grießhammer),SIL Open Font License 1.1,https://github.com/adobe-fonts/source-serif,Headlines
 Inter,Rasmus Andersson,SIL Open Font License 1.1,https://github.com/rsms/inter,Labels and numbers

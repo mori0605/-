@@ -18,6 +18,9 @@ import soundfile as sf
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 EP = os.path.join(ROOT, "episodes", "01-finland")
 SAMPLE_PARAS = "P02,P03,P04"
+# Chosen BGM: "Cinematic Documentary" by Lexin_Music (Pixabay Content License).
+# Download it from https://pixabay.com/music/beautiful-plays-cinematic-documentary-115669/ and save it here:
+DEFAULT_BGM = os.path.join(EP, "audio", "music", "cinematic-documentary-lexin.mp3")
 
 
 def run(*cmd, env=None):
@@ -25,9 +28,21 @@ def run(*cmd, env=None):
     subprocess.run(cmd, check=True, cwd=ROOT, env={**os.environ, **(env or {})})
 
 
+def read_audio(path):
+    """Read wav/mp3/m4a…; falls back to ffmpeg decoding when libsndfile can't read the format."""
+    try:
+        return sf.read(path, dtype="float32", always_2d=True)
+    except Exception:
+        import tempfile
+        import imageio_ffmpeg
+        tmp = os.path.join(tempfile.gettempdir(), "bgm_decoded.wav")
+        subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), "-loglevel", "error", "-y", "-i", path, "-ar", "48000", "-ac", "2", tmp], check=True)
+        return sf.read(tmp, dtype="float32", always_2d=True)
+
+
 def fit_music(src, narration, out):
     """Use a user-supplied music file: loop/trim to length, sit 19 dB under the voice, fade in/out."""
-    m, msr = sf.read(src, dtype="float32", always_2d=True)
+    m, msr = read_audio(src)
     n, nsr = sf.read(narration, dtype="float32")
     need = int(len(n) / nsr * msr)
     reps = int(np.ceil(need / len(m)))
@@ -42,6 +57,14 @@ def fit_music(src, narration, out):
 
 
 def bgm_step(mode, narration, out):
+    if mode == "default":
+        if os.path.exists(DEFAULT_BGM):
+            mode = DEFAULT_BGM
+        else:
+            print(f"!! BGM not found: {DEFAULT_BGM}\n   Download it from "
+                  "https://pixabay.com/music/beautiful-plays-cinematic-documentary-115669/ and save it there.\n"
+                  "   Rendering without BGM for now.", flush=True)
+            mode = "none"
     if mode == "auto":
         run(sys.executable, "tools/make_music.py", narration, out)
     elif mode == "none":
@@ -54,7 +77,7 @@ def bgm_step(mode, narration, out):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("what", choices=["sample", "episode"])
-    ap.add_argument("--bgm", default="auto")
+    ap.add_argument("--bgm", default="default", help="default (chosen track) | auto (code-composed) | none | path")
     ap.add_argument("--skip-tts", action="store_true")
     a = ap.parse_args()
     audio = os.path.join(EP, "audio")
