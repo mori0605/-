@@ -10,13 +10,13 @@ The TTS pipeline reads only the narration lines.
 **P01** In the early 2000s, a small Nordic country became a place of pilgrimage. Education ministers, school principals and consultants flew to Helsinki to find out what Finland knew that they didn't. The national education agency alone has hosted more than sixteen thousand visitors. Eventually, Finland started charging admission. A school visit now costs one thousand four hundred and eighty-five euros. Plus VAT.
 refs: F-VIS-1, F-VIS-2
 
-**P02** They came to see a miracle. In 2006, Finnish fifteen-year-olds scored 548 points in mathematics on the world's largest school test. For reformers everywhere, that number became a destination.
+**P02** They came to see a miracle. In 2006, Finnish fifteen-year-olds scored 548 in maths, on the world's largest school test.
 refs: F-FIN-M-2006
 
-**P03** Now watch what happened next. The score slipped, then kept sliding. Not one PISA round since 2006 has gone Finland's way. In the results published in September 2026, it reached 469.
+**P03** Then it fell. Every round since has come in lower than the last. The latest score: 469.
 refs: F-FIN-M-2006..2025 (each round lower than the last)
 
-**P04** That is a fall of 79 points. By the OECD's own rough yardstick, about 22 points is a year of learning. So today's Finnish fifteen-year-olds are, very roughly, three years of maths behind the teenagers of 2006.
+**P04** That's 79 points. By the OECD's own yardstick, roughly three years of learning, gone.
 refs: F-FIN-DROP-M, F-OECD-YARD, F-DERIV-YEARS
 
 **P05** The usual explanations are phones, the pandemic, and immigration. Each of them is either wrong or incomplete. The better answer is stranger. The world may have copied Finland for the wrong reasons. And Finland, it turns out, may have made the same mistake about itself. Let's test every suspect against the data, and see which ones survive.

@@ -47,15 +47,15 @@ const Story: React.FC = () => {
   const {c, pe} = useCues();
   const t = useT();
   const k548 = c('P02', '548');
-  const kNow = c('P03', 'Now');
-  const lineStart = kNow + 0.9;
-  const kFall = c('P04', 'fall');
+  const kNow = c('P03', 'Then');
+  const lineStart = kNow + 0.55;
+  const kFall = c('P04', 'That\'s');
   const k79 = c('P04', '79');
   const kYard = c('P04', 'yardstick,');
   const kThree = c('P04', 'three');
 
   // 548: count-up at centre, then flies to the start of the line
-  const fly = ramp(t, kNow, 1.0);
+  const fly = ramp(t, kNow, 0.75);
   const bigX = lerp(960, px(2006) - 10, fly);
   const bigY = lerp(650, py(548) - 56, fly);
   const bigSize = lerp(380, 76, fly);
@@ -64,8 +64,8 @@ const Story: React.FC = () => {
 
   // −79 bracket in the right-hand zone (never over the line)
   const bx = 1440;
-  const br = ramp(t, kFall, 0.8);
-  const drop = Math.round(lerp(0, 79, ramp(t, k79, 1.0)));
+  const br = ramp(t, kFall, 0.5);
+  const drop = Math.round(lerp(0, 79, ramp(t, k79, 0.8)));
   const yearTicks = [1, 2, 3].map((n) => py(548 - 22 * n));
 
   return (
@@ -73,13 +73,13 @@ const Story: React.FC = () => {
       <Camera breathe={0.008} keys={[
         {t: 0, x: 960, y: 560, k: 1.08},
         {t: k548, x: 960, y: 560, k: 1.0, dur: 1.4},
-        {t: c('P02', 'largest'), x: 960, y: 560, k: 1.05, dur: 3},
-        {t: c('P02', 'reformers'), x: 960, y: 580, k: 1.07, dur: 2},
-        {t: kNow, x: 860, y: 580, k: 1.0, dur: 1.0},
-        {t: lineStart + 1.6, x: 900, y: 600, k: 1.04, dur: 4},
-        {t: c('P03', 'results'), x: 1050, y: 660, k: 1.12, dur: 3},
-        {t: kFall - 0.4, x: 990, y: 580, k: 1.0, dur: 1.2},
-        {t: c('P04', 'So'), x: 1070, y: 580, k: 1.05, dur: 4},
+        {t: c('P02', 'maths,'), x: 960, y: 570, k: 1.04, dur: 1.2},
+        {t: c('P02', 'largest'), x: 960, y: 580, k: 1.07, dur: 1.4},
+        {t: kNow, x: 860, y: 580, k: 1.0, dur: 0.8},
+        {t: lineStart + 1.3, x: 900, y: 600, k: 1.04, dur: 2},
+        {t: c('P03', 'latest'), x: 1050, y: 660, k: 1.12, dur: 1.4},
+        {t: kFall - 0.3, x: 990, y: 580, k: 1.0, dur: 0.9},
+        {t: kYard, x: 1070, y: 580, k: 1.05, dur: 2},
       ]}>
         {/* 548 hero number (serif), becomes the start label */}
         <div style={{position: 'absolute', left: bigX - 700, top: bigY - bigSize * 0.62, width: 1400, textAlign: 'center',
@@ -87,13 +87,13 @@ const Story: React.FC = () => {
           opacity: ramp(t, k548 - 0.2, 0.3), transform: `scale(${bounce})`, ...num}}>
           {fmt(Math.round(count))}
         </div>
-        <CircleMarker x={960} y={590} r={350} at={c('P02', 'reformers')} out={kNow - 0.4} width={8} />
+        <CircleMarker x={960} y={590} r={350} at={c('P02', 'largest')} out={kNow - 0.3} width={8} />
         <div style={{position: 'absolute', left: 960 - 330 * ramp(t, k548 + 1.3, 0.6), top: 790, height: 14, borderRadius: 7,
-          width: 660 * ramp(t, k548 + 1.3, 0.6), background: C_FIN, opacity: 1 - ramp(t, c('P02', 'reformers') - 0.3, 0.4)}} />
+          width: 660 * ramp(t, k548 + 1.3, 0.6), background: C_FIN, opacity: 1 - ramp(t, c('P02', 'largest') - 0.3, 0.4)}} />
 
         <QuickLine x={CH.x} y={CH.y} w={CH.w} h={CH.h} xDomain={[CH.x0, CH.x1]} yDomain={[CH.y0, CH.y1]}
-          points={YRS.map((y) => ({x: y, y: M[y]}))} start={lineStart} dur={1.6} xTicks={[2006, 2025]} axisAt={kNow + 0.5}
-          startLabel={false} endLabelAt={lineStart + 1.5} stepArrowsAt={c('P03', 'Not')}
+          points={YRS.map((y) => ({x: y, y: M[y]}))} start={lineStart} dur={1.3} xTicks={[2006, 2025]} axisAt={kNow + 0.3}
+          startLabel={false} endLabelAt={lineStart + 1.2} stepArrowsAt={c('P03', 'lower')}
           dim={{at: kFall, to: 0.35}} />
         <CircleMarker x={px(2025)} y={py(469)} r={48} at={c('P03', '469.')} out={kFall} width={7} />
 
@@ -104,7 +104,7 @@ const Story: React.FC = () => {
             <line x1={bx} x2={bx} y1={py(548)} y2={py(548) + (py(469) - py(548)) * br} stroke={C_FIN} strokeWidth={10} strokeLinecap="round" />
             {yearTicks.map((yy, i) => (
               <line key={i} x1={bx - 26} x2={bx + 26} y1={yy} y2={yy} stroke={C_FIN} strokeWidth={8} strokeLinecap="round"
-                opacity={ramp(t, kYard + 0.9 + i * 0.35, 0.3)} />
+                opacity={ramp(t, kYard + i * 0.22, 0.25)} />
             ))}
           </g>
         </svg>
@@ -122,10 +122,10 @@ const Story: React.FC = () => {
       </Camera>
       {/* caption slot: few, longer-lasting lines */}
       <AbsoluteFill style={{background: `linear-gradient(180deg, ${color.paper} 0%, ${color.paper} 17%, rgba(244,239,227,0) 24%)`}} />
-      <Caption out={pe('P04') + 5} items={[
+      <Caption items={[
         {at: k548, text: "Finland's maths score, 2006"},
         {at: lineStart, text: 'Lower in every round since'},
-        {at: kYard, text: <>22 points ≈ <span style={{color: C_FIN}}>one year</span> of school</>},
+        {at: k79, text: <>22 points ≈ <span style={{color: C_FIN}}>one year</span> of school</>},
       ]} />
       <SourceTag text={t < kNow ? 'OECD, PISA 2006' : 'OECD PISA 2006–2025; OECD (2026): 22 points ≈ 1 year'} />
     </Paper>

@@ -23,13 +23,13 @@ from spoken import to_spoken  # noqa: E402
 MODELS = os.environ.get("TTS_MODELS", "/home/user/models")
 VOICE = os.environ.get("TTS_VOICE", "bm_lewis")    # channel voice: fixed (deep British male)
 LANG = os.environ.get("TTS_LANG", "en-us" if VOICE.startswith("a") else "en-gb")
-SPEED = float(os.environ.get("TTS_SPEED", "1.0"))
+SPEED = float(os.environ.get("TTS_SPEED", "1.12"))
 SR_OUT = 24000
 
-SENTENCE_GAP = 0.28
-PARAGRAPH_GAP = 0.65
+SENTENCE_GAP = float(os.environ.get("TTS_SENTENCE_GAP", "0.16"))
+PARAGRAPH_GAP = float(os.environ.get("TTS_PARAGRAPH_GAP", "0.4"))
 SECTION_GAP = 2.6
-NUMBER_GAP = 0.12     # extra pause before a sentence that opens with a number
+NUMBER_GAP = 0.06     # extra pause before a sentence that opens with a number
 
 
 class KokoroBackend:
