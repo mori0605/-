@@ -18,8 +18,8 @@ export const LineChart: React.FC<{
   vlines?: {x: number; label: string; at: number; col?: string; out?: number}[];
   bands?: {x0: number; x1: number; label: string; at: number; col: string; out?: number}[];
   notes?: {x: number; y: number; text: string; at: number; col?: string; dx?: number; dy?: number; out?: number}[];
-  yLabel?: string; xLabel?: string;
-}> = ({x, y, w, h, xDomain, yDomain, xTicks, yTicks, xFormat = (v) => String(v), appear = 0, series, vlines = [], bands = [], notes = [], yLabel, xLabel}) => {
+  yLabel?: string; xLabel?: string; fs?: number;
+}> = ({x, y, w, h, xDomain, yDomain, xTicks, yTicks, xFormat = (v) => String(v), appear = 0, series, vlines = [], bands = [], notes = [], yLabel, xLabel, fs = 1}) => {
   const t = useT();
   const sx = (v: number) => ((v - xDomain[0]) / (xDomain[1] - xDomain[0])) * w;
   const sy = (v: number) => h - ((v - yDomain[0]) / (yDomain[1] - yDomain[0])) * h;
@@ -40,14 +40,14 @@ export const LineChart: React.FC<{
           {yTicks.map((v) => (
             <g key={v}>
               <line x1={0} x2={w} y1={sy(v)} y2={sy(v)} stroke={color.inkFaint} strokeWidth={1} strokeDasharray="2 6" />
-              <text x={-18} y={sy(v) + 8} textAnchor="end" fontFamily={font.sans} fontSize={22} fill={color.inkSoft} style={num}>{v}</text>
+              <text x={-18} y={sy(v) + 8} textAnchor="end" fontFamily={font.sans} fontSize={22 * fs} fill={color.inkSoft} style={num}>{v}</text>
             </g>
           ))}
           <line x1={0} x2={w} y1={h} y2={h} stroke={color.ink} strokeWidth={2} />
           {xTicks.map((v) => (
             <g key={v}>
               <line x1={sx(v)} x2={sx(v)} y1={h} y2={h + 10} stroke={color.ink} strokeWidth={2} />
-              <text x={sx(v)} y={h + 42} textAnchor="middle" fontFamily={font.sans} fontSize={24} fill={color.ink} style={num}>{xFormat(v)}</text>
+              <text x={sx(v)} y={h + 16 + 26 * fs} textAnchor="middle" fontFamily={font.sans} fontSize={24 * fs} fill={color.ink} style={num}>{xFormat(v)}</text>
             </g>
           ))}
           {yLabel && <text x={-18} y={-26} textAnchor="end" fontFamily={font.sans} fontSize={21} fill={color.inkSoft}>{yLabel}</text>}
@@ -92,14 +92,14 @@ export const LineChart: React.FC<{
                 const pt = s.points[i];
                 const showVal = s.valueLabels === 'all' || (s.valueLabels === 'last' && i === lastIdx) || pt.label !== undefined;
                 const pos = pt.labelPos ?? s.labelPos ?? 'above';
-                const dy = pos === 'above' ? -24 : pos === 'below' ? 46 : 10;
+                const dy = pos === 'above' ? -24 * fs : pos === 'below' ? 46 * fs : 10 * fs;
                 const dx = pos === 'right' ? 18 : pos === 'left' ? -18 : 0;
                 const anchor = pos === 'right' ? 'start' : pos === 'left' ? 'end' : 'middle';
                 return (
                   <g key={i} opacity={o}>
-                    <circle cx={p[0]} cy={p[1]} r={pt.big ? 12 : 8} fill={color.paper} stroke={s.col} strokeWidth={4} />
+                    <circle cx={p[0]} cy={p[1]} r={(pt.big ? 12 : 8) * Math.sqrt(fs)} fill={color.paper} stroke={s.col} strokeWidth={4} />
                     {showVal && (
-                      <text x={p[0] + dx} y={p[1] + dy} textAnchor={anchor} fontFamily={font.sans} fontWeight={600} fontSize={pt.big ? 40 : 28} fill={s.col} style={num}>
+                      <text x={p[0] + dx} y={p[1] + dy} textAnchor={anchor} fontFamily={font.sans} fontWeight={600} fontSize={(pt.big ? 40 : 28) * fs} fill={s.col} style={num}>
                         {pt.label ?? pt.y}
                       </text>
                     )}
@@ -107,7 +107,7 @@ export const LineChart: React.FC<{
                 );
               })}
               {s.label && head && (
-                <text x={(head as [number, number])[0] + 22} y={(head as [number, number])[1] + 9 + (s.endLabelDy ?? 0)} fontFamily={font.sans} fontWeight={600} fontSize={30} fill={s.col}>{s.label}</text>
+                <text x={(head as [number, number])[0] + 22} y={(head as [number, number])[1] + 9 + (s.endLabelDy ?? 0)} fontFamily={font.sans} fontWeight={600} fontSize={30 * fs} fill={s.col}>{s.label}</text>
               )}
             </g>
           );

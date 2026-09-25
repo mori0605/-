@@ -21,9 +21,9 @@ sys.path.insert(0, os.path.dirname(__file__))
 from spoken import to_spoken  # noqa: E402
 
 MODELS = os.environ.get("TTS_MODELS", "/home/user/models")
-VOICE = os.environ.get("TTS_VOICE", "bf_emma")     # channel voice: fixed
-LANG = "en-gb"
-SPEED = 0.96
+VOICE = os.environ.get("TTS_VOICE", "bm_george")   # channel voice: fixed (intelligent British male)
+LANG = os.environ.get("TTS_LANG", "en-us" if VOICE.startswith("a") else "en-gb")
+SPEED = float(os.environ.get("TTS_SPEED", "1.0"))
 SR_OUT = 24000
 
 SENTENCE_GAP = 0.28
@@ -123,9 +123,11 @@ def split_sentences(text):
     return [p for p in parts if p.strip()]
 
 
-def main(ep_dir):
+def main(ep_dir, only=None, out_dir=None):
     paras = parse_script(f"{ep_dir}/script/script_en.md")
-    audio_dir = f"{ep_dir}/audio"
+    if only:
+        paras = [p for p in paras if p["id"] in only]
+    audio_dir = out_dir or f"{ep_dir}/audio"
     os.makedirs(f"{audio_dir}/paragraphs", exist_ok=True)
     tts, aligner = KokoroBackend(), Aligner()
     timeline, chunks, t = [], [], 0.0
@@ -166,4 +168,10 @@ def main(ep_dir):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("episode")
+    ap.add_argument("--only", help="comma-separated paragraph ids")
+    ap.add_argument("--out", help="output audio dir (default: <episode>/audio)")
+    a = ap.parse_args()
+    main(a.episode, a.only.split(",") if a.only else None, a.out)

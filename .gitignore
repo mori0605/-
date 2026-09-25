@@ -37,3 +37,6 @@ node_modules/
 episodes/*/audio/*.wav
 episodes/*/audio/paragraphs/
 episodes/*/out/*.mp4
+episodes/*/audio_sample/*.wav
+episodes/*/audio_sample/paragraphs/
+episodes/*/out/*.wav

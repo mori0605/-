@@ -16,7 +16,7 @@ const serveUrl = await bundle({
 const opts = {serveUrl, browserExecutable, chromiumOptions: {gl: 'swiftshader'}};
 
 if (mode === 'video') {
-  const composition = await selectComposition({...opts, id: 'Episode'});
+  const composition = await selectComposition({...opts, id: process.env.COMP || 'Episode'});
   const fps = composition.fps;
   const frameRange = a ? [Math.round(Number(a) * fps), Math.min(composition.durationInFrames - 1, Math.round(Number(b) * fps) - 1)] : null;
   let last = 0;
@@ -27,7 +27,7 @@ if (mode === 'video') {
   });
 } else if (mode === 'stills') {
   fs.mkdirSync(out, {recursive: true});
-  const composition = await selectComposition({...opts, id: 'Episode'});
+  const composition = await selectComposition({...opts, id: process.env.COMP || 'Episode'});
   for (const s of a.split(',')) {
     const frame = Math.round(Number(s) * composition.fps);
     await renderStill({...opts, composition, frame, output: path.join(out, `t${String(s).padStart(6, '0')}.png`)});
