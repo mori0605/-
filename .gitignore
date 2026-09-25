@@ -31,3 +31,8 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# video build
+work/
+assets/voices/
+__pycache__/
