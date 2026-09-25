@@ -82,3 +82,24 @@ Retrieved: 2026-09-25.
 | F-VIS-1 | The Finnish National Agency for Education alone has hosted 16,000+ international visitors since the early 2000s | search_confirmed | OPH news 2020 |
 | F-VIS-2 | School visits are paid: currently €1,485 per school visit plus VAT, max 20 people. An earlier figure was €1,240 per visit | search_confirmed (earlier figure from secondary coverage) | OPH "Services for international visitors" |
 | F-HS-2015 | Heller Sahlgren, *Real Finnish Lessons* (CPS, 15 Apr 2015): Finland's rise came before the famous reforms took effect, and its decline began soon after they did. He credits deep-rooted historical and cultural factors and traditional, teacher-led methods | search_confirmed | CPS PDF / IFN |
+
+## H. Added for Step 2 (all search_confirmed)
+
+| ID | Claim | Source |
+|---|---|---|
+| F-PISA2000 | PISA 2000: Finland highest in reading literacy (546 points); results published December 2001 | OKM "PISA survey and Finland's results" https://okm.fi/en/pisa-2000-en ; NCES 2002-116 |
+| F-FIN-R-PEAK | Finnish reading peaked at 547 in 2006 (2000: 546) | EERA contribution 33833; OECD Education GPS |
+| F-FEAT-AGE | Compulsory schooling starts at age 7 | InfoFinland https://infofinland.fi/en/education/the-finnish-education-system |
+| F-FEAT-MA | Class teachers (grades 1–6) must hold a master's degree in education | Suomi.fi / OPH "Qualification of class teacher" |
+| F-FEAT-TEST | No national standardised test until the matriculation exam at the end of upper secondary school | Finland Toolbox / Eurydice |
+| F-DECENT | In the 1980s–90s school inspections and pre-approval of learning materials were abolished. Since 1994 local providers have been responsible for quality assurance and local curricula | OECD "Finland: Slow and Steady Reform" (PISA 2009 profile) |
+| F-CUR-2014 | New core curriculum for basic education published in 2014; local curricula introduced gradually from August 2016. Includes phenomenon-based and cross-disciplinary learning | OPH https://www.oph.fi/en/education-and-qualifications/national-core-curriculum-primary-and-lower-secondary-basic-education |
+| F-READ-ENJ | The share of Finnish students reading for enjoyment fell between 2000 and 2009, by more than the OECD average | OECD PISA in Focus 2011/8 |
+| F-OPH-READ | OPH: reading used to be a popular pastime and supported results; social media and gaming now take up young people's time. The decline in literacy is key to the across-the-board decline | OPH blog https://www.oph.fi/en/blog/pisa-results-reflect-broader-changes-finnish-society |
+| F-ZHAO | Yong Zhao (*Who's Afraid of the Big Bad Dragon?*, 2014) argues that test-driven systems can produce high scores while suppressing creativity; PISA measures a narrow range of cognitive skills | Education Next review; TES interview |
+| F-FIN-DIFF | Finland 2025: more low performers, fewer top performers, widening gaps between students | Finnish Government, PISA 2025 |
+| F-EST-DECL | Estonia's 2025 math and reading are significantly lower than in 2015 and 2018 | ERR / Education Estonia |
+| F-OECD-YARD | OECD: 22 points ≈ "just over one year of learning"; 28 points ≈ about 1.5 years | OECD press release 2026 |
+| F-DERIV-YEARS | Derived: 79 ÷ 22 ≈ 3.6 → **"roughly three years or more of learning"**. The yardstick is approximate, so say "roughly" | calculation |
+| F-COHORT | School-entry year = PISA year − 8 (test at 15, school entry at 7; approximate) | derived from F-FEAT-AGE |
+| F-FIN-IMM-3 | On average, immigrant-background students in Finland score below their peers | Yle https://yle.fi/a/74-20115176 ; Finnish Government (PISA 2022) |
