@@ -19,12 +19,12 @@ In the 2000s, Finland had the most admired school system on Earth. Delegations f
 **Chapters**
 0:00 The pilgrimage to Helsinki
 0:54 Setup: the scoreboard
-1:20 Act 1: The miracle
-2:21 Act 2: The fall
-3:56 Act 3: Six suspects
-5:59 Counterpoint: Is East Asia the answer?
-6:42 What the world missed
-7:11 Your turn
+1:22 Act 1: The miracle
+2:25 Act 2: The fall
+4:01 Act 3: Six suspects
+6:06 Counterpoint: Is East Asia the answer?
+6:50 What the world missed
+7:21 Your turn
 
 **Original analyses in this video**
 - Finland vs Estonia, PISA maths 2003–2025 (crossover in 2012)

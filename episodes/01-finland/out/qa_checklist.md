@@ -15,7 +15,7 @@
 | YouTube synthetic-content disclosure | ⚠️ Needs a human | Narration is a synthetic voice, and the description says so. YouTube's "altered or synthetic content" setting is not strictly required for a synthetic voice that doesn't imitate a real person, but check the latest rules at upload |
 
 ## Output specs
-- `episode01_finland.mp4`: 1920×1080, 30 fps, H.264, AAC 48 kHz stereo, 7:25
+- `episode01_finland.mp4`: 1920×1080, 30 fps, H.264, AAC 48 kHz stereo, 7:36
 - `episode01_finland_nobgm.mp4`: narration only
 - `episode01_finland.srt`: 279 cues
 - The mp4 and wav files are excluded from git because of GitHub's 100 MB limit (`.gitignore`). Regenerate with `node tools/render.mjs episodes/01-finland video …` followed by loudness normalisation

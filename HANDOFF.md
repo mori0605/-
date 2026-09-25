@@ -3,7 +3,7 @@
 ## Status
 
 - **Research**: `episodes/01-finland/research/`. oecd.org and other primary sites were blocked in the cloud, so values were only confirmed through search snippets. **Confirm them directly in the primary sources before release** (task list in `factcheck.md` §4 and §6).
-- **Script v2**: `script/script_en.md` (EN) and `script_ja.md` (JA). Fully rewritten under the new rules (1,080 words, 7:25).
+- **Script v2**: `script/script_en.md` (EN) and `script_ja.md` (JA). Fully rewritten under the new rules (1,080 words, 7:36; chapter cards ~2.7 s).
 - **v2 full video**: rendered in the cloud (bm_lewis, new style, BGM Lexin). `python3 tools/pipeline.py episode` reproduces it.
 - **Style sample**: `remotion/Sample.tsx` (P02–P04, 25 s). **This is the approved look.**
   - Build it with `python3 tools/pipeline.py sample`.

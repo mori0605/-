@@ -88,576 +88,576 @@ and Finland may have made the same mistake
 about itself.
 
 21
-00:00:56,176 --> 00:00:59,227
+00:00:57,776 --> 00:01:00,827
 The test is PISA, run by the OECD.
 
 22
-00:00:59,277 --> 00:01:03,257
+00:01:00,877 --> 00:01:04,857
 Roughly every three years, it measures
 fifteen-year-olds in reading,
 
 23
-00:01:03,277 --> 00:01:04,571
+00:01:04,877 --> 00:01:06,171
 maths and science.
 
 24
-00:01:04,661 --> 00:01:08,934
+00:01:06,261 --> 00:01:10,534
 The 2025 round covered ninety-one
 countries and economies.
 
 25
-00:01:09,184 --> 00:01:11,607
+00:01:10,784 --> 00:01:13,207
 It doesn't test what students memorised.
 
 26
-00:01:11,627 --> 00:01:15,244
+00:01:13,227 --> 00:01:16,844
 It tests whether they can use it on
 problems they've never seen.
 
 27
-00:01:15,264 --> 00:01:17,921
+00:01:16,864 --> 00:01:19,521
 A bad result can end a minister's career.
 
 28
-00:01:17,941 --> 00:01:20,758
+00:01:19,541 --> 00:01:22,358
 A good one can launch a consulting
 industry.
 
 29
-00:01:22,208 --> 00:01:25,628
+00:01:25,408 --> 00:01:28,828
 The first results came out in December
 2001,
 
 30
-00:01:25,648 --> 00:01:28,471
+00:01:28,848 --> 00:01:31,671
 and Finland was top of the world in
 reading.
 
 31
-00:01:28,491 --> 00:01:33,111
+00:01:31,691 --> 00:01:36,311
 By 2006 it was scoring 563 in science,
 
 32
-00:01:33,131 --> 00:01:38,134
+00:01:36,331 --> 00:01:41,334
 548 in maths and 547 in reading.
 
 33
-00:01:38,384 --> 00:01:41,724
+00:01:41,584 --> 00:01:44,924
 Visitors found a system that seemed to
 break every rule.
 
 34
-00:01:41,744 --> 00:01:43,249
+00:01:44,944 --> 00:01:46,449
 School starts at seven.
 
 35
-00:01:43,269 --> 00:01:46,567
+00:01:46,469 --> 00:01:49,767
 No national tests until the end of upper
 secondary.
 
 36
-00:01:46,587 --> 00:01:48,135
+00:01:49,787 --> 00:01:51,335
 No school inspectors.
 
 37
-00:01:48,155 --> 00:01:51,419
+00:01:51,355 --> 00:01:54,619
 And every primary teacher holds a master's
 degree.
 
 38
-00:01:51,669 --> 00:01:52,983
+00:01:54,869 --> 00:01:56,183
 All of that was true.
 
 39
-00:01:53,003 --> 00:01:55,297
+00:01:56,203 --> 00:01:58,497
 The mistake was one word: because.
 
 40
-00:01:55,317 --> 00:01:57,617
+00:01:58,517 --> 00:02:00,817
 Finland tested less and scored more,
 
 41
-00:01:57,637 --> 00:02:01,185
+00:02:00,837 --> 00:02:04,385
 so the world concluded it scored more
 because it tested less.
 
 42
-00:02:01,515 --> 00:02:04,497
+00:02:04,715 --> 00:02:07,697
 But look at who sat the 2006 test.
 
 43
-00:02:04,517 --> 00:02:09,009
+00:02:07,717 --> 00:02:12,209
 Born around 1991, they started school
 around 1998.
 
 44
-00:02:09,029 --> 00:02:12,929
+00:02:12,229 --> 00:02:16,129
 The famous freedoms had only been written
 into the rules in the 1990s,
 
 45
-00:02:12,949 --> 00:02:15,969
+00:02:16,149 --> 00:02:19,169
 and many of their teachers had trained in
 an older,
 
 46
-00:02:15,989 --> 00:02:17,873
+00:02:19,189 --> 00:02:21,073
 far more centralised system.
 
 47
-00:02:17,893 --> 00:02:19,655
+00:02:21,093 --> 00:02:22,855
 Rules change in a year.
 
 48
-00:02:19,675 --> 00:02:21,915
+00:02:22,875 --> 00:02:25,115
 Classrooms change over decades.
 
 49
-00:02:23,365 --> 00:02:25,361
+00:02:28,165 --> 00:02:30,161
 Here is the whole maths record.
 
 50
-00:02:25,381 --> 00:02:30,471
+00:02:30,181 --> 00:02:35,271
 A small climb to the 2006 peak, then a
 lower score in every round since.
 
 51
-00:02:30,491 --> 00:02:31,911
+00:02:35,291 --> 00:02:36,711
 This isn't a blip.
 
 52
-00:02:31,931 --> 00:02:34,918
+00:02:36,731 --> 00:02:39,718
 It's a trend that has run for almost
 twenty years.
 
 53
-00:02:35,168 --> 00:02:41,028
+00:02:39,968 --> 00:02:45,828
 Reading followed the same path, from 547
 down to 474,
 
 54
-00:02:41,048 --> 00:02:43,297
+00:02:45,848 --> 00:02:48,097
 now joint seventeenth with Italy.
 
 55
-00:02:43,387 --> 00:02:49,164
+00:02:48,187 --> 00:02:53,964
 Science held up best, but still slid from
 563 to 504.
 
 56
-00:02:49,184 --> 00:02:52,951
+00:02:53,984 --> 00:02:57,751
 Finland is still above the OECD average in
 all three.
 
 57
-00:02:52,971 --> 00:02:54,934
+00:02:57,771 --> 00:02:59,734
 In maths, by just six points.
 
 58
-00:02:55,224 --> 00:02:56,860
+00:03:00,024 --> 00:03:01,660
 Part of this is global.
 
 59
-00:02:56,880 --> 00:03:03,020
+00:03:01,680 --> 00:03:07,820
 Across the OECD, reading fell 28 points
 and maths 22 between 2015
 
 60
-00:03:03,040 --> 00:03:04,444
+00:03:07,840 --> 00:03:09,244
 and 2025.
 
 61
-00:03:04,464 --> 00:03:07,985
+00:03:09,264 --> 00:03:12,785
 But Finland fell further, and the damage
 shows at both ends.
 
 62
-00:03:08,235 --> 00:03:12,415
+00:03:13,035 --> 00:03:17,215
 In the early 2000s, about seven per cent
 of Finnish students were below
 
 63
-00:03:12,435 --> 00:03:13,964
+00:03:17,235 --> 00:03:18,764
 the baseline in maths.
 
 64
-00:03:13,984 --> 00:03:16,321
+00:03:18,784 --> 00:03:21,121
 By 2022, one in four.
 
 65
-00:03:16,341 --> 00:03:17,686
+00:03:21,141 --> 00:03:22,486
 The top shrank too.
 
 66
-00:03:17,736 --> 00:03:22,465
+00:03:22,536 --> 00:03:27,265
 In 2003, more than twenty-three per cent
 reached the highest levels.
 
 67
-00:03:22,485 --> 00:03:24,982
+00:03:27,285 --> 00:03:29,782
 In 2025, seven per cent.
 
 68
-00:03:25,232 --> 00:03:26,247
+00:03:30,032 --> 00:03:31,047
 Now the neighbour.
 
 69
-00:03:26,267 --> 00:03:28,887
+00:03:31,067 --> 00:03:33,687
 Estonia sits just across the Gulf of
 Finland,
 
 70
-00:03:28,907 --> 00:03:32,070
+00:03:33,707 --> 00:03:36,870
 and its language is a close relative of
 Finnish.
 
 71
-00:03:32,120 --> 00:03:36,807
+00:03:36,920 --> 00:03:41,607
 In 2006, it trailed Finland in maths by
 thirty-three points.
 
 72
-00:03:36,827 --> 00:03:38,993
+00:03:41,627 --> 00:03:43,793
 By 2012, the two were level.
 
 73
-00:03:39,013 --> 00:03:42,313
+00:03:43,813 --> 00:03:47,113
 In 2025, Estonia led by thirty-nine,
 
 74
-00:03:42,333 --> 00:03:45,009
+00:03:47,133 --> 00:03:49,809
 and it was ahead in reading and science
 too.
 
 75
-00:03:45,259 --> 00:03:49,078
+00:03:50,059 --> 00:03:53,878
 And the top of the OECD table in 2025?
 
 76
-00:03:49,128 --> 00:03:52,428
+00:03:53,928 --> 00:03:57,228
 Japan, first in all three subjects for the
 first time.
 
 77
-00:03:52,448 --> 00:03:54,935
+00:03:57,248 --> 00:03:59,735
 So should everyone just copy East Asia?
 
 78
-00:03:54,955 --> 00:03:56,150
+00:03:59,755 --> 00:04:00,950
 Hold that thought.
 
 79
-00:03:57,600 --> 00:03:59,873
+00:04:04,000 --> 00:04:06,273
 Six explanations get the blame.
 
 80
-00:03:59,893 --> 00:04:02,033
+00:04:06,293 --> 00:04:08,433
 A good one has to explain three things:
 
 81
-00:04:02,053 --> 00:04:05,033
+00:04:08,453 --> 00:04:11,433
 why Finland fell, why it fell further than
 most,
 
 82
-00:04:05,053 --> 00:04:08,001
+00:04:11,453 --> 00:04:14,401
 and why it started after 2006.
 
 83
-00:04:08,251 --> 00:04:10,268
+00:04:14,651 --> 00:04:16,668
 Suspect one: immigration.
 
 84
-00:04:10,288 --> 00:04:14,076
+00:04:16,688 --> 00:04:20,476
 Scores fell among students with and
 without a migrant background.
 
 85
-00:04:14,096 --> 00:04:18,516
+00:04:20,496 --> 00:04:24,916
 In maths, immigrant-background students
 held roughly steady since 2012,
 
 86
-00:04:18,536 --> 00:04:20,444
+00:04:24,936 --> 00:04:26,844
 and the gap actually narrowed.
 
 87
-00:04:20,464 --> 00:04:21,787
+00:04:26,864 --> 00:04:28,187
 Not the main cause.
 
 88
-00:04:22,077 --> 00:04:24,695
+00:04:28,477 --> 00:04:31,095
 Suspect two: phones and the pandemic.
 
 89
-00:04:24,715 --> 00:04:29,847
+00:04:31,115 --> 00:04:36,247
 The OECD links heavy leisure use of
 devices at school to lower scores.
 
 90
-00:04:29,867 --> 00:04:32,007
+00:04:36,267 --> 00:04:38,407
 But that's a correlation, it's global,
 
 91
-00:04:32,027 --> 00:04:36,300
+00:04:38,427 --> 00:04:42,700
 and Finland's slide began more than a
 decade before COVID-19.
 
 92
-00:04:36,320 --> 00:04:38,347
+00:04:42,720 --> 00:04:44,747
 An accelerant, not the origin.
 
 93
-00:04:38,597 --> 00:04:40,337
+00:04:44,997 --> 00:04:46,737
 Suspect three: reading.
 
 94
-00:04:40,357 --> 00:04:45,017
+00:04:46,757 --> 00:04:51,417
 Finland's own education agency says
 reading used to be a popular pastime
 
 95
-00:04:45,037 --> 00:04:46,513
+00:04:51,437 --> 00:04:52,913
 that held results up.
 
 96
-00:04:46,533 --> 00:04:51,953
+00:04:52,933 --> 00:04:58,353
 Between 2000 and 2009, the share of
 Finnish students reading for enjoyment
 
 97
-00:04:51,973 --> 00:04:55,100
+00:04:58,373 --> 00:05:01,500
 fell faster than the OECD average.
 
 98
-00:04:55,120 --> 00:04:58,183
+00:05:01,520 --> 00:05:04,583
 And every maths question is also a reading
 test.
 
 99
-00:04:58,203 --> 00:04:59,889
+00:05:04,603 --> 00:05:06,289
 A likely contributor.
 
 100
-00:05:00,179 --> 00:05:02,647
+00:05:06,579 --> 00:05:09,047
 Suspect four: student-led learning.
 
 101
-00:05:02,667 --> 00:05:06,887
+00:05:09,067 --> 00:05:13,287
 A new curriculum built around phenomenon-
 based learning reached schools
 
 102
-00:05:06,907 --> 00:05:08,076
+00:05:13,307 --> 00:05:14,476
 in 2016.
 
 103
-00:05:08,096 --> 00:05:10,711
+00:05:14,496 --> 00:05:17,111
 But scores had already been falling for a
 decade.
 
 104
-00:05:10,731 --> 00:05:12,246
+00:05:17,131 --> 00:05:18,646
 Possible, not proven.
 
 105
-00:05:12,536 --> 00:05:14,620
+00:05:18,936 --> 00:05:21,020
 Suspect five: inequality.
 
 106
-00:05:14,640 --> 00:05:17,020
+00:05:21,040 --> 00:05:23,420
 More low performers, fewer top performers,
 
 107
-00:05:17,040 --> 00:05:18,001
+00:05:23,440 --> 00:05:24,401
 wider gaps.
 
 108
-00:05:18,021 --> 00:05:18,982
+00:05:24,421 --> 00:05:25,382
 All true.
 
 109
-00:05:19,032 --> 00:05:20,796
+00:05:25,432 --> 00:05:27,196
 But that describes the damage.
 
 110
-00:05:20,816 --> 00:05:22,267
+00:05:27,216 --> 00:05:28,667
 It doesn't explain it.
 
 111
-00:05:22,557 --> 00:05:24,449
+00:05:28,957 --> 00:05:30,849
 Suspect six: the legacy.
 
 112
-00:05:24,469 --> 00:05:29,649
+00:05:30,869 --> 00:05:36,049
 In 2015, the economist Gabriel Heller
 Sahlgren argued that Finland's rise
 
 113
-00:05:29,669 --> 00:05:32,689
+00:05:36,069 --> 00:05:39,089
 began before its celebrated reforms took
 effect,
 
 114
-00:05:32,709 --> 00:05:35,724
+00:05:39,109 --> 00:05:42,124
 and its decline began soon after they did.
 
 115
-00:05:35,744 --> 00:05:38,364
+00:05:42,144 --> 00:05:44,764
 The miracle, he said, came from something
 older:
 
 116
-00:05:38,384 --> 00:05:41,206
+00:05:44,784 --> 00:05:47,606
 teacher-led classrooms and deep cultural
 roots.
 
 117
-00:05:41,456 --> 00:05:44,076
+00:05:47,856 --> 00:05:50,476
 Now shift every maths score back eight
 years,
 
 118
-00:05:44,096 --> 00:05:46,268
+00:05:50,496 --> 00:05:52,668
 to when those students started school.
 
 119
-00:05:46,288 --> 00:05:50,673
+00:05:52,688 --> 00:05:57,073
 The best results belong to children who
 started in the late 1990s.
 
 120
-00:05:50,693 --> 00:05:54,844
+00:05:57,093 --> 00:06:01,244
 The decline begins with those who started
 in the early 2000s.
 
 121
-00:05:54,864 --> 00:05:56,561
+00:06:01,264 --> 00:06:02,961
 That doesn't prove the theory.
 
 122
-00:05:56,581 --> 00:05:59,462
+00:06:02,981 --> 00:06:05,862
 But no other suspect fits the timing as
 well.
 
 123
-00:06:00,912 --> 00:06:02,844
+00:06:08,912 --> 00:06:10,844
 So is East Asia the answer?
 
 124
-00:06:02,864 --> 00:06:08,044
+00:06:10,864 --> 00:06:16,044
 Japan tops the OECD, yet only sixty-three
 per cent of its students say they're
 
 125
-00:06:08,064 --> 00:06:12,924
+00:06:16,064 --> 00:06:20,924
 curious about many things, against
 seventy-three across the OECD.
 
 126
-00:06:12,944 --> 00:06:16,647
+00:06:20,944 --> 00:06:24,647
 Forty-eight per cent say they push harder
 when work gets difficult.
 
 127
-00:06:16,667 --> 00:06:18,971
+00:06:24,667 --> 00:06:26,971
 The OECD average is sixty.
 
 128
-00:06:19,221 --> 00:06:23,921
+00:06:27,221 --> 00:06:31,921
 Critics like the education scholar Yong
 Zhao argue that test-driven systems
 
 129
-00:06:23,941 --> 00:06:27,169
+00:06:31,941 --> 00:06:35,169
 can buy high scores at the cost of
 creativity.
 
 130
-00:06:27,189 --> 00:06:30,390
+00:06:35,189 --> 00:06:38,390
 One test on one day is not a verdict on a
 nation.
 
 131
-00:06:30,640 --> 00:06:34,023
+00:06:38,640 --> 00:06:42,023
 And Finland is still above average in
 every subject.
 
 132
-00:06:34,043 --> 00:06:38,623
+00:06:42,043 --> 00:06:46,623
 Sliding from the top of the reading table
 to joint seventeenth is a crisis
 
 133
-00:06:38,643 --> 00:06:39,729
+00:06:46,643 --> 00:06:47,729
 in Helsinki.
 
 134
-00:06:39,749 --> 00:06:42,417
+00:06:47,749 --> 00:06:50,417
 In most capitals, it would be a press
 release.
 
 135
-00:06:43,867 --> 00:06:45,756
+00:06:53,467 --> 00:06:55,356
 Finland's success was real.
 
 136
-00:06:45,776 --> 00:06:47,596
+00:06:55,376 --> 00:06:57,196
 But the world copied what it could see:
 
 137
-00:06:47,616 --> 00:06:50,524
+00:06:57,216 --> 00:07:00,124
 the late start, the missing tests, the
 freedom.
 
 138
-00:06:50,544 --> 00:06:54,244
+00:07:00,144 --> 00:07:03,844
 It missed what it couldn't see: a
 generation that read for pleasure,
 
 139
-00:06:54,264 --> 00:06:56,743
+00:07:03,864 --> 00:07:06,343
 and teachers who taught the basics
 directly.
 
 140
-00:06:56,763 --> 00:07:00,390
+00:07:06,363 --> 00:07:09,990
 Those couldn't be exported, and at home
 they quietly faded.
 
 141
-00:07:00,640 --> 00:07:03,820
+00:07:10,240 --> 00:07:13,420
 So the next time a headline announces an
 education miracle,
 
 142
-00:07:03,840 --> 00:07:05,345
+00:07:13,440 --> 00:07:14,945
 ask three questions.
 
 143
-00:07:05,365 --> 00:07:07,681
+00:07:14,965 --> 00:07:17,281
 When were these students actually taught?
 
 144
-00:07:07,701 --> 00:07:09,868
+00:07:17,301 --> 00:07:19,468
 What changed before the scores did?
 
 145
-00:07:09,888 --> 00:07:11,787
+00:07:19,488 --> 00:07:21,387
 And what's happening at the bottom?
 
 146
-00:07:13,237 --> 00:07:16,215
+00:07:24,437 --> 00:07:27,415
 Finland didn't fall because it stopped
 being Finland.
 
 147
-00:07:16,235 --> 00:07:19,841
+00:07:27,435 --> 00:07:31,041
 It fell, at least partly, because it
 started believing the brochure.
 
 148
-00:07:20,091 --> 00:07:23,505
+00:07:31,291 --> 00:07:34,705
 What did your school get right that no
 ranking would ever measure?
 
