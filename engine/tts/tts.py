@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from spoken import to_spoken  # noqa: E402
 
 MODELS = os.environ.get("TTS_MODELS", "/home/user/models")
-VOICE = os.environ.get("TTS_VOICE", "bm_george")   # channel voice: fixed (intelligent British male)
+VOICE = os.environ.get("TTS_VOICE", "bm_lewis")    # channel voice: fixed (deep British male)
 LANG = os.environ.get("TTS_LANG", "en-us" if VOICE.startswith("a") else "en-gb")
 SPEED = float(os.environ.get("TTS_SPEED", "1.0"))
 SR_OUT = 24000

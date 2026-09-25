@@ -5,7 +5,7 @@ import {color, font, num} from '../theme';
 export type Pt = {x: number; y: number; at?: number; label?: string; labelPos?: 'above' | 'below' | 'right' | 'left'; big?: boolean};
 export type Series = {
   id: string; label?: string; col: string; points: Pt[]; start?: number; dur?: number; width?: number; dashed?: boolean;
-  valueLabels?: 'all' | 'last' | 'none'; labelPos?: 'above' | 'below'; endLabelDy?: number; dim?: {at: number; to: number};
+  valueLabels?: 'all' | 'last' | 'none'; labelPos?: 'above' | 'below'; labelFmt?: (p: Pt, i: number) => string; endLabelDy?: number; dim?: {at: number; to: number};
 };
 
 /**
@@ -100,7 +100,7 @@ export const LineChart: React.FC<{
                     <circle cx={p[0]} cy={p[1]} r={(pt.big ? 12 : 8) * Math.sqrt(fs)} fill={color.paper} stroke={s.col} strokeWidth={4} />
                     {showVal && (
                       <text x={p[0] + dx} y={p[1] + dy} textAnchor={anchor} fontFamily={font.sans} fontWeight={600} fontSize={(pt.big ? 40 : 28) * fs} fill={s.col} style={num}>
-                        {pt.label ?? pt.y}
+                        {pt.label ?? (s.labelFmt ? s.labelFmt(pt, i) : pt.y)}
                       </text>
                     )}
                   </g>
