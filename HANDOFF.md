@@ -3,10 +3,8 @@
 ## Status
 
 - **Research**: `episodes/01-finland/research/`. oecd.org and other primary sites were blocked in the cloud, so values were only confirmed through search snippets. **Confirm them directly in the primary sources before release** (task list in `factcheck.md` §4 and §6).
-- **Script**: `script/script_en.md` (EN) and `script_ja.md` (JA review translation).
-  - P02–P04, P03 and P14 have already been rewritten under the new rules (tempo, trend narration).
-  - **Every other paragraph is still the old, long version.**
-- **v1 full video**: rendered in the cloud (female voice, old style). Superseded by the style change and **not for use**.
+- **Script v2**: `script/script_en.md` (EN) and `script_ja.md` (JA). Fully rewritten under the new rules (1,080 words, 7:25).
+- **v2 full video**: rendered in the cloud (bm_lewis, new style, BGM Lexin). `python3 tools/pipeline.py episode` reproduces it.
 - **Style sample**: `remotion/Sample.tsx` (P02–P04, 25 s). **This is the approved look.**
   - Build it with `python3 tools/pipeline.py sample`.
 - **Style rules**: all feedback so far is in `CLAUDE.md` §3, §4, §5, §7 and §8. Main points:
@@ -24,8 +22,8 @@
 ## Next steps (in order)
 
 1. **Verify primary sources** (network available locally): check the values in `research/data/*.csv` against the OECD PISA 2025/2022 tables, add table numbers to `facts.md`, and update `factcheck.md`.
-2. **Rewrite the whole script to 8–12 minutes** (same rules as P02–P04). Update `script_ja.md` too. Run `python3 tools/check_banned.py episodes/01-finland/script/script_en.md`.
-3. **Rebuild every scene under the new rules**: bring the style of `Sample.tsx` to all of `scenes.tsx`.
+2. ~~Rewrite the script~~ (done in v2).
+3. ~~Rebuild every scene~~ (done in v2). Next: act on the producer's feedback on v2.
    - Use the `Caption`, `QuickLine`, `Camera` and `CircleMarker` components (in `engine/components/`).
    - Update the storyboard: `python3 tools/make_storyboard.py episodes/01-finland` (this also checks pacing).
    - Check `Episode.tsx`: chapter cards, transitions.

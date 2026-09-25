@@ -107,3 +107,5 @@ Retrieved: 2026-09-25.
 | F-DECENT-1990s | "1990s: the rules change" = inspections and pre-approval of materials abolished (1980s–90s); local curricula from 1994 | F-DECENT |
 | F-EST-GAP-2006 | Estonia–Finland maths gap in 2006 = 548 − 515 = 33 | derived |
 | F-GAP-2025 | Finland − OECD, 2025: maths +6, reading +13, science +22 | derived from F-OECD-2025 and F-FIN-*-2025 |
+| F-EST-LEAD-2025 | Estonia − Finland, 2025: maths 508 − 469 = +39; also ahead in reading (499 vs 474) and science (527 vs 504) | derived from F-EST-2025, F-FIN-*-2025 |
+| F-FIN-M-DROP-2015 | Finland maths 2015 → 2025: 511 → 469 = −42 (vs OECD −22) | derived from F-FIN-M-2015, F-FIN-M-2025, F-OECD-TREND |

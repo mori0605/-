@@ -29,7 +29,7 @@ SR_OUT = 24000
 
 SENTENCE_GAP = float(os.environ.get("TTS_SENTENCE_GAP", "0.16"))
 PARAGRAPH_GAP = float(os.environ.get("TTS_PARAGRAPH_GAP", "0.4"))
-SECTION_GAP = 2.6
+SECTION_GAP = float(os.environ.get("TTS_SECTION_GAP", "1.6"))
 NUMBER_GAP = 0.06     # extra pause before a sentence that opens with a number
 
 

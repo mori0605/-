@@ -9,8 +9,9 @@ export type CamKey = {t: number; x?: number; y?: number; k?: number; dur?: numbe
  * Virtual camera for Paper scenes: pans/zooms between keyframes (screen-space focus point + zoom).
  * Each keyframe eases in over `dur` seconds, so every narration beat can move the frame a little.
  */
-export const Camera: React.FC<{keys: CamKey[]; children: React.ReactNode; breathe?: number}> = ({keys, children, breathe = 0.012}) => {
+export const Camera: React.FC<{keys: CamKey[]; children: React.ReactNode; breathe?: number}> = ({keys: rawKeys, children, breathe = 0.012}) => {
   const t = useT();
+  const keys = [...rawKeys].sort((a, b) => a.t - b.t);
   let x = keys[0].x ?? 960, y = keys[0].y ?? 540, k = keys[0].k ?? 1;
   for (let i = 1; i < keys.length; i++) {
     const kf = keys[i];
@@ -106,3 +107,7 @@ export const Caption: React.FC<{items: {at: number; text: React.ReactNode}[]; x?
     </>
   );
 };
+
+/** Small camera "beats" on narration cues: alternate a gentle push/pull and a sideways drift. */
+export const beats = (times: number[], base: {x?: number; y?: number} = {}): CamKey[] =>
+  times.map((t, i) => ({t, x: (base.x ?? 960) + (i % 2 ? 36 : -36), y: (base.y ?? 580) + (i % 2 ? -18 : 18), k: i % 2 ? 1.02 : 1.07, dur: 1.8}));

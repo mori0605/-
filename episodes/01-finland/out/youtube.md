@@ -14,17 +14,17 @@ Recommended: **1** (thumbnail 1 or 3).
 
 ## Description
 
-In the 2000s, Finland had the most admired school system on Earth. Delegations flew to Helsinki to learn its secret. Since then, its PISA maths score has fallen from 548 to 469, one of the steepest declines among developed countries. We test six explanations against the data and find the world may have copied Finland for the wrong reasons.
+In the 2000s, Finland had the most admired school system on Earth. Delegations flew to Helsinki to learn its secret. Since then, its PISA maths score has fallen from 548 to 469, lower in every round since 2006. We test six explanations against the data and find the world may have copied Finland for the wrong reasons.
 
 **Chapters**
 0:00 The pilgrimage to Helsinki
-1:35 Setup: the scoreboard
-2:29 Act 1: The miracle
-4:20 Act 2: The fall
-7:52 Act 3: Six suspects
-11:59 Counterpoint: So is East Asia right?
-13:09 What the world missed
-14:07 Your turn
+0:54 Setup: the scoreboard
+1:20 Act 1: The miracle
+2:21 Act 2: The fall
+3:56 Act 3: Six suspects
+5:59 Counterpoint: Is East Asia the answer?
+6:42 What the world missed
+7:11 Your turn
 
 **Original analyses in this video**
 - Finland vs Estonia, PISA maths 2003–2025 (crossover in 2012)

@@ -26,7 +26,8 @@ export type Arc = {from: [number, number]; to: [number, number]; at: number; dur
 export type Pulse = {lon: number; lat: number; at: number; col?: string};
 
 export const WorldMap: React.FC<{kind?: 'world' | 'nordic'; keys: Key[]; highlights?: Highlight[]; labels?: MapLabel[]; arcs?: Arc[]; pulses?: Pulse[]; children?: React.ReactNode}> =
-  ({kind = 'world', keys, highlights = [], labels = [], arcs = [], pulses = []}) => {
+  ({kind = 'world', keys: keysIn, highlights = [], labels = [], arcs = [], pulses = []}) => {
+  let keys = keysIn;
   const t = useT();
   const {paths, proj, grat, outline} = useMemo(() => {
     const proj = makeProjection(kind);
@@ -38,6 +39,7 @@ export const WorldMap: React.FC<{kind?: 'world' | 'nordic'; keys: Key[]; highlig
   }, [kind]);
 
   // camera
+  keys = [...keys].sort((a, b) => a.t - b.t);
   let cam = keys[0];
   for (let i = 1; i < keys.length; i++) {
     const a = keys[i - 1], b = keys[i];

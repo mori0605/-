@@ -1,49 +1,41 @@
 # Storyboard — Episode 01
 
-Times come from the narration timeline (`audio/timeline.json`). Chapter title cards sit in the 2.6 s pauses between sections.
+Times come from the narration timeline (`audio/timeline.json`). Chapter title cards sit in the 1.6 s pauses between sections.
 Every scene has a continuous slow move (paper push-in or map Ken Burns), so no frame is fully static. The last column is the longest gap between cued visual changes in that scene.
 The source tag is shown bottom-left on every data scene (see `SourceTag` in `remotion/scenes.tsx`).
 
 | Scene | Start | Paragraphs | Narration (opening) | Mode | Components | Data (facts.md) | Motion | Longest gap between cues |
 |---|---|---|---|---|---|---|---|---|
-| S01 | 0:00.4 | P01 | In the early 2000s, a small Nordic country became… | World | WorldMap(nordic), StatCallout×2 | F-VIS-1, F-VIS-2 | Zoom from Europe to Helsinki; Finland lights up in vermilion; 16,000+ and €1,485 count up | 4.7s |
-| S02 | 0:26.5 | P02 | They came to see a miracle. In 2006, Finnish… | Paper | StatCallout | F-FIN-M-2006 | 548 counts up in vermilion | 5.3s |
-| S03 | 0:40.8 | P03, P04 | Now watch what happened next. 541. 519. 511. 507.… / That is a fall of 79 points. By the… | Paper | LineChart, bracket, yardstick blocks | F-FIN-M-2006..2025, F-OECD-YARD | Line extends to each score as it is spoken; −79 bracket; 22-point blocks stack | 5.8s |
-| S05 | 1:15.3 | P05 | The usual explanations are phones, the pandemic, and immigration.… | Night | Line + strike | — | Three suspects appear and are struck through; the question | 5.4s |
-| S06 | 1:38.0 | P06 | First, the scoreboard. PISA is the OECD's Programme for… | World | WorldMap(world), StatCallout×2 | F-PISA-SCALE | Slow world pan; 91 / 760,000 count up | 5.4s |
-| S07 | 2:02.1 | P07 | PISA doesn't ask students to recite a syllabus. It… | Paper | Line ×4 | — | What PISA does and doesn't test; the minister joke | 4.1s |
-| S08 | 2:19.1 | P08 | On the PISA scale, a gap of ten or… | Paper | EraTimeline as points scale | F-OECD-YARD, F-FIN-DROP-M | Points ruler: 10–15 band, 22 = 1 year, 79 | 4.4s |
-| S09 | 2:32.0 | P09 | When the first PISA results came out in December… | Paper | Line, StatCallout×3 | F-PISA2000, F-FIN-R-PEAK, F-FIN-M-2006, F-FIN-S-2006 | #1 in reading 2000; three 2006 scores count up | 3.2s |
-| S10 | 2:51.7 | P10, P11 | The visitors found a system that looked almost designed… / Here was a country that tested less, started later… | Paper | Feature cards ×4, frame | F-FEAT-AGE, F-FEAT-TEST, F-DECENT, F-FEAT-MA | Cards appear on cue; framed as "The Finnish model" | 5.9s |
-| S12 | 3:28.5 | P12 | None of those features was invented. They were real.… | Paper | Line | — | "because" → correlation mistaken for cause | 5.5s |
-| S13 | 3:42.6 | P13 | But think about who actually sat the test in… | Paper | EraTimeline | F-COHORT, F-DECENT | Born 1991 / school 1998 / tested 2006; eras shaded | 5.0s |
-| S14 | 4:22.2 | P14 | Here is Finland's maths score, round by round. 544… | Paper | LineChart | F-FIN-M-2003..2025 | Full maths series draws | 3.7s |
-| S15 | 4:38.6 | P15 | Reading tells the same story. From a peak of… | Paper | LineChart ×3 (small multiples) | F-FIN-R/S-2006/2025, ranks, F-OECD-2025 | 2006→2025 slope per subject; OECD reference | 5.8s |
-| S15b | 5:04.6 | P15b | Just not by much. In maths, the OECD average… | Paper | Dot-gap chart | F-OECD-2025, F-FIN-*-2025 | Finland vs OECD dots, gap shown | 6.2s |
-| S16 | 5:25.5 | P16 | And Finland is not falling alone. Across the OECD,… | Paper | HBars | F-OECD-TREND, F-2022-OECDΔ | OECD-wide losses grow | 5.8s |
-| S17 | 5:50.5 | P17 | But only part. An average can hide a lot,… | Paper | Waffle | F-FIN-LOW-* | 7 → 25 of 100 students light up | 4.6s |
-| S18 | 6:19.0 | P18 | The top has thinned out too. In 2003, more… | Paper | Waffle | F-FIN-TOP-2003/2025 | 23 → 7 of 100 | 5.4s |
-| S19a | 6:37.3 | P19 | Now bring in the neighbour. Estonia sits just across… | World | WorldMap(nordic) | — | Zoom to the Gulf of Finland; Estonia lights up in indigo | 3.4s |
-| S19b | 6:44.0 | P19, P20 | Now bring in the neighbour. Estonia sits just across… / In 2025, Estonia scored 508 in maths against Finland's… | Paper | LineChart (original analysis A), table | F-EST-M-*, F-FIN-M-*, F-EST-2025, F-EST-RANK | Both lines draw; 2012 tie marked; 2025 table fills | 5.8s |
-| S21 | 7:25.4 | P21 | And at the top of the OECD table, there's… | Paper | HBars | F-JPN-2025, F-JPN-RANK, F-2022-JPKR | Japan vs OECD bars | 6.3s |
-| S22 | 7:54.9 | P22 | There are six popular explanations for Finland's decline. A… | Paper | Criteria list + suspect cards | — | Three tests; six suspects | 4.2s |
-| S23 | 8:13.6 | P23 | Suspect one: immigration. Finland has become more diverse, and… | Paper | VerdictCard ✗ | F-FIN-IMM-1..3 | Evidence lines; verdict stamp | 5.2s |
-| S24 | 8:42.6 | P24 | Suspect two: phones and the pandemic. The OECD's 2025… | Paper | VerdictCard △ + EraTimeline | F-DIG-1, F-DIG-2 | Evidence; 2006 vs 2020 timeline; stamp | 5.5s |
-| S25 | 9:18.0 | P25 | Suspect three: reading. Finland's own education agency says that… | Paper | VerdictCard ○ | F-OPH-READ, F-READ-ENJ, F-FIN-LOW-R-2025 | Evidence; stamp | 5.6s |
-| S26 | 10:00.9 | P26 | Suspect four: student-led learning. In 2014, Finland published a… | Paper | VerdictCard △ + LineChart | F-CUR-2014, F-FIN-M-* | Line draws, 2016 marker; stamp | 5.5s |
-| S27 | 10:33.1 | P27 | Suspect five: inequality. The Finnish government's own summary of… | Paper | VerdictCard — | F-FIN-DIFF | Three findings; stamp | 4.3s |
-| S28 | 10:55.2 | P28 | Which brings us to suspect six: the legacy. In… | Paper | QuoteCard | F-HS-2015 | Summary of Heller Sahlgren's argument | 5.7s |
-| S29 | 11:22.7 | P29 | Remember 1998, the year our peak test-takers started school?… | Paper | LineChart (original analysis C) | F-COHORT, F-FIN-M-*, F-CUR-2014 | Series re-plotted by school-entry year; peak band; 2016 line; verdict | 5.4s |
-| S30 | 12:01.3 | P30 | So should everyone just copy Japan instead? Not so… | Paper | HBars | F-JPN-CUR, F-JPN-PER | Japan vs OECD self-reports | 6.2s |
-| S31 | 12:32.2 | P31 | Critics like the education scholar Yong Zhao have spent… | Paper | QuoteCard | F-ZHAO | Paraphrase of Zhao's argument | 5.3s |
-| S32 | 12:52.3 | P32 | And perspective matters. Finland is still above the OECD… | Paper | StatCallout ×2 | F-PISA2000, F-FIN-R-RANK-2025, F-FIN-S-RANK-2025 | #1 → =17 | 4.2s |
-| S33 | 13:11.5 | P33 | So what happened? Finland's success in the 2000s was… | Paper | Two columns | — | Copied vs missed; the missed column fades | 5.4s |
-| S34 | 13:38.9 | P34 | That's the real lesson, and it isn't about Finland.… | Night | Line ×3 | — | Three questions | 6.0s |
-| S35 | 14:10.1 | P35, P36 | Finland didn't fall because it stopped being Finland. It… / So here's my question for you. What did your… | World | WorldMap(nordic), TitleCard | — | Slow zoom out from Finland; closing line; comment question | 4.9s |
+| S01 | 0:00.4 | P01 | In the early 2000s, education delegations from around the… | World | WorldMap(nordic)+arcs+pulse, Hero x2, Caption | F-VIS-1, F-VIS-2 | Flight paths converge on Helsinki; slow zoom; 16,000+ and €1,485 count up | 5.0s |
+| S02 | 0:22.6 | P02, P03, P04 | They came to see a miracle. In 2006, Finnish… / Then it fell. Every round since has come in… / That's 79 points. By the OECD's own yardstick, roughly… | Paper | Hero 548 → QuickLine → drop bracket | F-FIN-M-2006..2025, F-FIN-DROP-M, F-OECD-YARD | 548 counts up, circled, flies to the line start; line draws in 1.3 s; −79 bracket, year ticks | 3.5s |
+| S05 | 0:41.5 | P05 | The usual suspects are phones, the pandemic and immigration.… | Night | Struck words, Focal | — | Three suspects struck out; the thesis lands | 3.8s |
+| S06 | 0:56.2 | P06 | The test is PISA, run by the OECD. Roughly… | World | WorldMap(world), Hero | F-PISA-SCALE | World pan; 91 counts up | 3.9s |
+| S07 | 1:09.2 | P07 | It doesn't test what students memorised. It tests whether… | Paper | CardGrid 2×2 | — | Cards pop in on cue | 2.7s |
+| S09 | 1:22.2 | P09 | The first results came out in December 2001, and… | Paper | Hero #1, Hero ×3 | F-PISA2000, F-FIN-*-2006 | #1, then three 2006 scores count up | 3.2s |
+| S10 | 1:38.4 | P10, P11 | Visitors found a system that seemed to break every… / All of that was true. The mistake was one… | Paper | CardGrid 2×2, Focal | F-FEAT-*, F-DECENT | Four features; cards clear; 'because'; the false inference | 4.3s |
+| S13 | 2:01.4 | P13 | But look at who sat the 2006 test. Born… | Paper | EraTimeline | F-COHORT-2006, F-DECENT | Born / school / tested markers; eras shade in | 4.3s |
+| S14 | 2:23.4 | P14 | Here is the whole maths record. A small climb… | Paper | QuickLine | F-FIN-M-2003..2025 | Line draws fast; peak circled; step arrows | 4.3s |
+| S15 | 2:35.2 | P15 | Reading followed the same path, from 547 down to… | Paper | Score rows → dot-gap | F-FIN-R/S, F-GAP-2025 | 547→474, 563→504; then gaps to OECD average | 4.1s |
+| S16 | 2:55.2 | P16 | Part of this is global. Across the OECD, reading… | Paper | HBars | F-OECD-TREND, F-FIN-M-2015/2025 | OECD −28, −22; Finland −42 | 4.4s |
+| S17 | 3:08.2 | P17 | In the early 2000s, about seven per cent of… | Paper | Waffle ×2 | F-FIN-LOW-*, F-FIN-TOP-* | 7→25 below baseline; 23→7 top | 4.2s |
+| S19a | 3:25.2 | P19 | Now the neighbour. Estonia sits just across the Gulf… | World | WorldMap(nordic) | — | Zoom to the Gulf; Estonia lights up | 2.8s |
+| S19b | 3:31.5 | P19 | Now the neighbour. Estonia sits just across the Gulf… | Paper | QuickLine ×2 (original analysis A) | F-EST-M-*, F-FIN-M-*, F-EST-LEAD-2025 | Both lines draw; 2012 'Level'; +39 | 3.4s |
+| S21 | 3:45.3 | P21 | And the top of the OECD table in 2025?… | World | WorldMap(world), Hero | F-JPN-RANK | Pan from Finland to Japan; Japan lights up | 3.9s |
+| S22 | 3:57.6 | P22 | Six explanations get the blame. A good one has… | Paper | CardGrid 3×2 | — | Six suspects pop in | 3.7s |
+| S23 | 4:08.3 | P23 | Suspect one: immigration. Scores fell among students with and… | Paper | Arrows + Stamp | F-FIN-IMM-1, F-FIN-IMM-2 | Down vs flat arrows; ✗ stamp | 2.9s |
+| S24 | 4:22.0 | P24 | Suspect two: phones and the pandemic. The OECD links… | Paper | Focal → QuickLine + vline + Stamp | F-DIG-1, F-FIN-M-* | Correlation line; slide vs COVID marker; △ stamp | 4.3s |
+| S25 | 4:38.6 | P25 | Suspect three: reading. Finland's own education agency says reading… | Paper | Book icon, Focal, Stamp | F-OPH-READ, F-READ-ENJ | Book fades; two statements; ○ stamp | 4.6s |
+| S26 | 5:00.1 | P26 | Suspect four: student-led learning. A new curriculum built around… | Paper | QuickLine + band + vline + Stamp | F-CUR-2014, F-FIN-M-* | Already falling band; 2016 marker; △ stamp | 2.9s |
+| S27 | 5:12.5 | P27 | Suspect five: inequality. More low performers, fewer top performers,… | Paper | CardGrid 1×3 + Stamp | F-FIN-DIFF | Three findings; — stamp | 2.8s |
+| S28 | 5:22.5 | P28 | Suspect six: the legacy. In 2015, the economist Gabriel… | Paper | Quote (summary), Focal | F-HS-2015 | Quote builds; the older cause | 4.5s |
+| S29 | 5:41.5 | P29 | Now shift every maths score back eight years, to… | Paper | QuickLine by entry year (original analysis C) + Stamp | F-COHORT, F-FIN-M-* | Peak band; step arrows; ○ stamp | 4.4s |
+| S30 | 6:00.9 | P30 | So is East Asia the answer? Japan tops the… | Paper | HBars | F-JPN-CUR, F-JPN-PER | Japan vs OECD self-reports | 4.4s |
+| S31 | 6:19.2 | P31 | Critics like the education scholar Yong Zhao argue that… | Paper | Focal ×2 | F-ZHAO | Critique → one test ≠ verdict | 3.4s |
+| S32 | 6:30.6 | P32 | And Finland is still above average in every subject.… | Paper | #1 → =17 | F-PISA2000, F-FIN-R-RANK-2025 | Rank slide | 3.9s |
+| S33 | 6:43.9 | P33 | Finland's success was real. But the world copied what… | Paper | CardGrid ×2 | — | Copied vs missed; missed fades | 4.0s |
+| S34 | 7:00.6 | P34 | So the next time a headline announces an education… | Night | Three questions | — | Questions slide in | 3.9s |
+| S35 | 7:13.2 | P35, P36 | Finland didn't fall because it stopped being Finland. It… / What did your school get right that no ranking… | World | WorldMap(nordic), Focal | — | Zoom out; closing line; comment question | 3.3s |
 
 ## Pacing check (> 6 s between cued changes)
 
-- S15b: 6.2s without a cued change (from 5:06.4); covered by continuous camera move
-- S21: 6.3s without a cued change (from 7:32.4); covered by continuous camera move
-- S30: 6.2s without a cued change (from 12:15.8); covered by continuous camera move
-- S34: 6.0s without a cued change (from 13:39.6); covered by continuous camera move
+- None

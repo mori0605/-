@@ -12,8 +12,9 @@ export const QuickLine: React.FC<{
   points: {x: number; y: number}[]; col?: string; start: number; dur?: number; width?: number;
   xTicks?: number[]; axisAt?: number; startLabel?: boolean; endLabel?: boolean; endLabelAt?: number;
   stepArrowsAt?: number; dim?: {at: number; to: number}; labelSize?: number; hideStartLabelUntil?: number;
+  vlines?: {x: number; label: string; at: number; col?: string}[]; band?: {x0: number; x1: number; label: string; at: number; col?: string};
 }> = ({x, y, w, h, xDomain, yDomain, points, col = color.vermilion, start, dur = 1.5, width = 10, xTicks = [], axisAt = start - 0.4,
-       startLabel = true, endLabel = true, endLabelAt, stepArrowsAt, dim, labelSize = 76, hideStartLabelUntil}) => {
+       startLabel = true, endLabel = true, endLabelAt, stepArrowsAt, dim, labelSize = 76, hideStartLabelUntil, vlines = [], band}) => {
   const t = useT();
   const sx = (v: number) => x + ((v - xDomain[0]) / (xDomain[1] - xDomain[0])) * w;
   const sy = (v: number) => y + ((yDomain[1] - v) / (yDomain[1] - yDomain[0])) * h;
@@ -38,6 +39,16 @@ export const QuickLine: React.FC<{
   return (
     <>
       <svg style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}} width={1920} height={1080}>
+        {band && (
+          <g opacity={ramp(t, band.at, 0.5)}>
+            <rect x={sx(band.x0)} y={y - 10} width={(sx(band.x1) - sx(band.x0)) * ramp(t, band.at, 0.8)} height={h + 10} fill={band.col ?? color.indigo} opacity={0.14} />
+          </g>
+        )}
+        {vlines.map((v, i) => (
+          <g key={i} opacity={ramp(t, v.at, 0.4)}>
+            <line x1={sx(v.x)} x2={sx(v.x)} y1={y + h - (h + 30) * ramp(t, v.at, 0.6)} y2={y + h} stroke={v.col ?? color.ochre} strokeWidth={6} strokeDasharray="14 10" />
+          </g>
+        ))}
         <g opacity={axisO}>
           <line x1={x - 30} x2={x + w + 30} y1={y + h} y2={y + h} stroke={color.ink} strokeWidth={4} />
           {xTicks.map((v) => (
@@ -67,6 +78,14 @@ export const QuickLine: React.FC<{
           })}
         </g>
       </svg>
+      {vlines.map((v, i) => (
+        <div key={'vl' + i} style={{position: 'absolute', left: sx(v.x) - 300, width: 600, top: y - 92, textAlign: 'center', fontFamily: font.sans,
+          fontWeight: 800, fontSize: 44, color: v.col ?? color.ochre, opacity: ramp(t, v.at + 0.2, 0.4)}}>{v.label}</div>
+      ))}
+      {band && (
+        <div style={{position: 'absolute', left: sx(band.x0) - 150, width: sx(band.x1) - sx(band.x0) + 300, top: y - 92, textAlign: 'center', fontFamily: font.sans,
+          fontWeight: 800, fontSize: 44, color: band.col ?? color.indigo, opacity: ramp(t, band.at + 0.2, 0.4)}}>{band.label}</div>
+      )}
       {startLabel && (
         <div style={{position: 'absolute', left: P[0][0] - 240, top: P[0][1] - labelSize - 30, width: 260, textAlign: 'right',
           fontFamily: font.sans, fontWeight: 800, fontSize: labelSize, color: col, lineHeight: 1, opacity: o * ramp(t, hideStartLabelUntil ?? start - 0.2, 0.3), ...num}}>

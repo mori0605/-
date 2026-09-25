@@ -33,9 +33,9 @@ export const TitleCard: React.FC<{kicker?: string; title: string; at: number; ou
   const o = fade(t, at, out, 0.6);
   return (
     <div style={{position: 'absolute', left: 160, right: 160, top: y, transform: `translateY(-50%) translateY(${(1 - ramp(t, at, 0.8)) * 20}px)`, textAlign: 'center', opacity: o}}>
-      {kicker && <div style={{fontFamily: font.sans, fontSize: 24, letterSpacing: 5, textTransform: 'uppercase', fontWeight: 600,
-        color: dark ? color.vermilion : color.vermilion, marginBottom: 22}}>{kicker}</div>}
-      <div style={{fontFamily: font.serif, fontSize: size, lineHeight: 1.12, fontWeight: 600, color: dark ? color.nightText : color.ink}}>{title}</div>
+      {kicker && <div style={{fontFamily: font.sans, fontSize: 44, fontWeight: 800,
+        color: color.vermilion, marginBottom: 18}}>{kicker}</div>}
+      <div style={{fontFamily: font.sans, fontSize: size, lineHeight: 1.05, fontWeight: 900, color: dark ? color.nightText : color.ink}}>{title}</div>
     </div>
   );
 };

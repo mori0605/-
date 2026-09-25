@@ -15,26 +15,26 @@ export const EraTimeline: React.FC<{
       <g transform="translate(0,300)">
         {bands.map((b, i) => (
           <g key={i} opacity={ramp(t, b.at, 0.6)}>
-            <rect x={sx(b.from)} y={-26} width={(sx(b.to) - sx(b.from)) * ramp(t, b.at, 0.9)} height={52} fill={b.col} opacity={0.22} rx={4} />
-            <text x={sx(b.from) + 12} y={70} fontFamily={font.sans} fontSize={24} fontWeight={600} fill={b.col}>{b.label}</text>
+            <rect x={sx(b.from)} y={-30} width={(sx(b.to) - sx(b.from)) * ramp(t, b.at, 0.9)} height={60} fill={b.col} opacity={0.25} rx={6} />
+            <text x={sx(b.from) + 12} y={84} fontFamily={font.sans} fontSize={36} fontWeight={800} fill={b.col}>{b.label}</text>
           </g>
         ))}
-        <line x1={0} x2={w * ramp(t, appear, 1)} y1={0} y2={0} stroke={color.ink} strokeWidth={3} />
+        <line x1={0} x2={w * ramp(t, appear, 1)} y1={0} y2={0} stroke={color.ink} strokeWidth={5} />
         {ticks.map((v) => (
           <g key={v} opacity={ramp(t, appear + 0.3, 0.5)}>
             <line x1={sx(v)} x2={sx(v)} y1={-8} y2={8} stroke={color.ink} strokeWidth={2} />
-            <text x={sx(v)} y={120} textAnchor="middle" fontFamily={font.sans} fontSize={24} fill={color.inkSoft} style={num}>{v}</text>
+            <text x={sx(v)} y={150} textAnchor="middle" fontFamily={font.sans} fontSize={40} fontWeight={800} fill={color.ink} style={num}>{v}</text>
           </g>
         ))}
         {markers.map((m, i) => {
           const lv = m.level ?? 0;
           const up = m.above !== false;
-          const len = 90 + lv * 70;
+          const len = 110 + lv * 90;
           return (
             <g key={i} opacity={fade(t, m.at)}>
-              <line x1={sx(m.year)} x2={sx(m.year)} y1={0} y2={up ? -len : len} stroke={m.col ?? color.vermilion} strokeWidth={3} />
-              <circle cx={sx(m.year)} cy={0} r={11} fill={m.col ?? color.vermilion} />
-              <text x={sx(m.year)} y={up ? -len - 16 : len + 38} textAnchor="middle" fontFamily={font.sans} fontSize={30} fontWeight={600} fill={m.col ?? color.vermilion}>{m.label}</text>
+              <line x1={sx(m.year)} x2={sx(m.year)} y1={0} y2={up ? -len : len} stroke={m.col ?? color.vermilion} strokeWidth={5} />
+              <circle cx={sx(m.year)} cy={0} r={16} fill={m.col ?? color.vermilion} />
+              <text x={sx(m.year)} y={up ? -len - 20 : len + 50} textAnchor="middle" fontFamily={font.sans} fontSize={46} fontWeight={900} fill={m.col ?? color.vermilion}>{m.label}</text>
             </g>
           );
         })}

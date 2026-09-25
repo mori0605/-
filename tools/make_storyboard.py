@@ -17,46 +17,35 @@ norm = lambda s: re.sub(r"[^a-z0-9%-]", "", re.sub(r"[’']", "", s.lower()))
 
 PLAN = [
     # id, paragraphs, mode, components, data/facts, motion
-    ("S01", ["P01"], "World", "WorldMap(nordic), StatCallout×2", "F-VIS-1, F-VIS-2", "Zoom from Europe to Helsinki; Finland lights up in vermilion; 16,000+ and €1,485 count up"),
-    ("S02", ["P02"], "Paper", "StatCallout", "F-FIN-M-2006", "548 counts up in vermilion"),
-    ("S03", ["P03", "P04"], "Paper", "LineChart, bracket, yardstick blocks", "F-FIN-M-2006..2025, F-OECD-YARD", "Line extends to each score as it is spoken; −79 bracket; 22-point blocks stack"),
-    ("S05", ["P05"], "Night", "Line + strike", "—", "Three suspects appear and are struck through; the question"),
-    ("CH", [], "Paper", "TitleCard", "—", "Chapter card: Setup"),
-    ("S06", ["P06"], "World", "WorldMap(world), StatCallout×2", "F-PISA-SCALE", "Slow world pan; 91 / 760,000 count up"),
-    ("S07", ["P07"], "Paper", "Line ×4", "—", "What PISA does and doesn't test; the minister joke"),
-    ("S08", ["P08"], "Paper", "EraTimeline as points scale", "F-OECD-YARD, F-FIN-DROP-M", "Points ruler: 10–15 band, 22 = 1 year, 79"),
-    ("CH", [], "Paper", "TitleCard", "—", "Chapter card: Act 1"),
-    ("S09", ["P09"], "Paper", "Line, StatCallout×3", "F-PISA2000, F-FIN-R-PEAK, F-FIN-M-2006, F-FIN-S-2006", "#1 in reading 2000; three 2006 scores count up"),
-    ("S10", ["P10", "P11"], "Paper", "Feature cards ×4, frame", "F-FEAT-AGE, F-FEAT-TEST, F-DECENT, F-FEAT-MA", "Cards appear on cue; framed as \"The Finnish model\""),
-    ("S12", ["P12"], "Paper", "Line", "—", "\"because\" → correlation mistaken for cause"),
-    ("S13", ["P13"], "Paper", "EraTimeline", "F-COHORT, F-DECENT", "Born 1991 / school 1998 / tested 2006; eras shaded"),
-    ("CH", [], "Paper", "TitleCard", "—", "Chapter card: Act 2"),
-    ("S14", ["P14"], "Paper", "LineChart", "F-FIN-M-2003..2025", "Full maths series draws"),
-    ("S15", ["P15"], "Paper", "LineChart ×3 (small multiples)", "F-FIN-R/S-2006/2025, ranks, F-OECD-2025", "2006→2025 slope per subject; OECD reference"),
-    ("S15b", ["P15b"], "Paper", "Dot-gap chart", "F-OECD-2025, F-FIN-*-2025", "Finland vs OECD dots, gap shown"),
-    ("S16", ["P16"], "Paper", "HBars", "F-OECD-TREND, F-2022-OECDΔ", "OECD-wide losses grow"),
-    ("S17", ["P17"], "Paper", "Waffle", "F-FIN-LOW-*", "7 → 25 of 100 students light up"),
-    ("S18", ["P18"], "Paper", "Waffle", "F-FIN-TOP-2003/2025", "23 → 7 of 100"),
-    ("S19a", ["P19"], "World", "WorldMap(nordic)", "—", "Zoom to the Gulf of Finland; Estonia lights up in indigo"),
-    ("S19b", ["P19", "P20"], "Paper", "LineChart (original analysis A), table", "F-EST-M-*, F-FIN-M-*, F-EST-2025, F-EST-RANK", "Both lines draw; 2012 tie marked; 2025 table fills"),
-    ("S21", ["P21"], "Paper", "HBars", "F-JPN-2025, F-JPN-RANK, F-2022-JPKR", "Japan vs OECD bars"),
-    ("CH", [], "Paper", "TitleCard", "—", "Chapter card: Act 3"),
-    ("S22", ["P22"], "Paper", "Criteria list + suspect cards", "—", "Three tests; six suspects"),
-    ("S23", ["P23"], "Paper", "VerdictCard ✗", "F-FIN-IMM-1..3", "Evidence lines; verdict stamp"),
-    ("S24", ["P24"], "Paper", "VerdictCard △ + EraTimeline", "F-DIG-1, F-DIG-2", "Evidence; 2006 vs 2020 timeline; stamp"),
-    ("S25", ["P25"], "Paper", "VerdictCard ○", "F-OPH-READ, F-READ-ENJ, F-FIN-LOW-R-2025", "Evidence; stamp"),
-    ("S26", ["P26"], "Paper", "VerdictCard △ + LineChart", "F-CUR-2014, F-FIN-M-*", "Line draws, 2016 marker; stamp"),
-    ("S27", ["P27"], "Paper", "VerdictCard —", "F-FIN-DIFF", "Three findings; stamp"),
-    ("S28", ["P28"], "Paper", "QuoteCard", "F-HS-2015", "Summary of Heller Sahlgren's argument"),
-    ("S29", ["P29"], "Paper", "LineChart (original analysis C)", "F-COHORT, F-FIN-M-*, F-CUR-2014", "Series re-plotted by school-entry year; peak band; 2016 line; verdict"),
-    ("CH", [], "Paper", "TitleCard", "—", "Chapter card: Counterpoint"),
+    ("S01", ["P01"], "World", "WorldMap(nordic)+arcs+pulse, Hero x2, Caption", "F-VIS-1, F-VIS-2", "Flight paths converge on Helsinki; slow zoom; 16,000+ and €1,485 count up"),
+    ("S02", ["P02", "P03", "P04"], "Paper", "Hero 548 → QuickLine → drop bracket", "F-FIN-M-2006..2025, F-FIN-DROP-M, F-OECD-YARD", "548 counts up, circled, flies to the line start; line draws in 1.3 s; −79 bracket, year ticks"),
+    ("S05", ["P05"], "Night", "Struck words, Focal", "—", "Three suspects struck out; the thesis lands"),
+    ("S06", ["P06"], "World", "WorldMap(world), Hero", "F-PISA-SCALE", "World pan; 91 counts up"),
+    ("S07", ["P07"], "Paper", "CardGrid 2×2", "—", "Cards pop in on cue"),
+    ("S09", ["P09"], "Paper", "Hero #1, Hero ×3", "F-PISA2000, F-FIN-*-2006", "#1, then three 2006 scores count up"),
+    ("S10", ["P10", "P11"], "Paper", "CardGrid 2×2, Focal", "F-FEAT-*, F-DECENT", "Four features; cards clear; 'because'; the false inference"),
+    ("S13", ["P13"], "Paper", "EraTimeline", "F-COHORT-2006, F-DECENT", "Born / school / tested markers; eras shade in"),
+    ("S14", ["P14"], "Paper", "QuickLine", "F-FIN-M-2003..2025", "Line draws fast; peak circled; step arrows"),
+    ("S15", ["P15"], "Paper", "Score rows → dot-gap", "F-FIN-R/S, F-GAP-2025", "547→474, 563→504; then gaps to OECD average"),
+    ("S16", ["P16"], "Paper", "HBars", "F-OECD-TREND, F-FIN-M-2015/2025", "OECD −28, −22; Finland −42"),
+    ("S17", ["P17"], "Paper", "Waffle ×2", "F-FIN-LOW-*, F-FIN-TOP-*", "7→25 below baseline; 23→7 top"),
+    ("S19a", ["P19"], "World", "WorldMap(nordic)", "—", "Zoom to the Gulf; Estonia lights up"),
+    ("S19b", ["P19"], "Paper", "QuickLine ×2 (original analysis A)", "F-EST-M-*, F-FIN-M-*, F-EST-LEAD-2025", "Both lines draw; 2012 'Level'; +39"),
+    ("S21", ["P21"], "World", "WorldMap(world), Hero", "F-JPN-RANK", "Pan from Finland to Japan; Japan lights up"),
+    ("S22", ["P22"], "Paper", "CardGrid 3×2", "—", "Six suspects pop in"),
+    ("S23", ["P23"], "Paper", "Arrows + Stamp", "F-FIN-IMM-1, F-FIN-IMM-2", "Down vs flat arrows; ✗ stamp"),
+    ("S24", ["P24"], "Paper", "Focal → QuickLine + vline + Stamp", "F-DIG-1, F-FIN-M-*", "Correlation line; slide vs COVID marker; △ stamp"),
+    ("S25", ["P25"], "Paper", "Book icon, Focal, Stamp", "F-OPH-READ, F-READ-ENJ", "Book fades; two statements; ○ stamp"),
+    ("S26", ["P26"], "Paper", "QuickLine + band + vline + Stamp", "F-CUR-2014, F-FIN-M-*", "Already falling band; 2016 marker; △ stamp"),
+    ("S27", ["P27"], "Paper", "CardGrid 1×3 + Stamp", "F-FIN-DIFF", "Three findings; — stamp"),
+    ("S28", ["P28"], "Paper", "Quote (summary), Focal", "F-HS-2015", "Quote builds; the older cause"),
+    ("S29", ["P29"], "Paper", "QuickLine by entry year (original analysis C) + Stamp", "F-COHORT, F-FIN-M-*", "Peak band; step arrows; ○ stamp"),
     ("S30", ["P30"], "Paper", "HBars", "F-JPN-CUR, F-JPN-PER", "Japan vs OECD self-reports"),
-    ("S31", ["P31"], "Paper", "QuoteCard", "F-ZHAO", "Paraphrase of Zhao's argument"),
-    ("S32", ["P32"], "Paper", "StatCallout ×2", "F-PISA2000, F-FIN-R-RANK-2025, F-FIN-S-RANK-2025", "#1 → =17"),
-    ("CH", [], "Paper", "TitleCard", "—", "Chapter card: Resolution"),
-    ("S33", ["P33"], "Paper", "Two columns", "—", "Copied vs missed; the missed column fades"),
-    ("S34", ["P34"], "Night", "Line ×3", "—", "Three questions"),
-    ("S35", ["P35", "P36"], "World", "WorldMap(nordic), TitleCard", "—", "Slow zoom out from Finland; closing line; comment question"),
+    ("S31", ["P31"], "Paper", "Focal ×2", "F-ZHAO", "Critique → one test ≠ verdict"),
+    ("S32", ["P32"], "Paper", "#1 → =17", "F-PISA2000, F-FIN-R-RANK-2025", "Rank slide"),
+    ("S33", ["P33"], "Paper", "CardGrid ×2", "—", "Copied vs missed; missed fades"),
+    ("S34", ["P34"], "Night", "Three questions", "—", "Questions slide in"),
+    ("S35", ["P35", "P36"], "World", "WorldMap(nordic), Focal", "—", "Zoom out; closing line; comment question"),
 ]
 
 src = open(f"{ep}/remotion/scenes.tsx").read()
@@ -86,9 +75,13 @@ for sid, ps, mode, comp, data, motion in PLAN:
     start = paras[ps[0]]["start"]
     end = paras[ps[-1]]["end"]
     if sid == "S19b":
-        start = cue_time("P19", "2006,") - 0.7
+        start = cue_time("P19", "2006,") - 0.6
+    if sid == "S02":
+        start = cue_time("P02", "548") - 0.3
     if sid == "S19a":
-        end = cue_time("P19", "2006,") - 0.7
+        end = cue_time("P19", "2006,") - 0.6
+    if sid == "S01":
+        end = cue_time("P02", "548") - 0.3
     body = bodies.get(sid, "")
     times = sorted(cue_time(p, w, int(n or 1)) for p, w, n in re.findall(r"c\('(\w+)', ['\"]([^'\"]+)['\"](?:, (\d+))?\)", body))
     times = [start] + [x for x in times if start - 1 <= x <= end + 1] + [end]
@@ -102,7 +95,7 @@ for sid, ps, mode, comp, data, motion in PLAN:
 
 with open(f"{ep}/storyboard.md", "w") as f:
     f.write("# Storyboard — Episode 01\n\n")
-    f.write("Times come from the narration timeline (`audio/timeline.json`). Chapter title cards sit in the 2.6 s pauses between sections.\n")
+    f.write("Times come from the narration timeline (`audio/timeline.json`). Chapter title cards sit in the 1.6 s pauses between sections.\n")
     f.write("Every scene has a continuous slow move (paper push-in or map Ken Burns), so no frame is fully static. "
             "The last column is the longest gap between cued visual changes in that scene.\n")
     f.write("The source tag is shown bottom-left on every data scene (see `SourceTag` in `remotion/scenes.tsx`).\n\n")

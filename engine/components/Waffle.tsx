@@ -18,17 +18,17 @@ export const Waffle: React.FC<{
   const gap = cell * 0.28;
   return (
     <div style={{position: 'absolute', left: x, top: y, opacity: ramp(t, appear, 0.5)}}>
-      {label && <div style={{fontFamily: font.sans, fontSize: 28, fontWeight: 500, color: color.inkSoft, marginBottom: 18}}>{label}</div>}
+      {label && <div style={{fontFamily: font.sans, fontSize: 44, fontWeight: 800, color: color.ink, marginBottom: 22}}>{label}</div>}
       <svg width={10 * cell + 9 * gap} height={10 * cell + 9 * gap}>
         {Array.from({length: 100}).map((_, i) => {
           const r = Math.floor(i / 10), c = i % 10;
           const idx = (9 - r) * 10 + c; // fill from bottom row upward
           const lit = idx < on;
           return <circle key={i} cx={c * (cell + gap) + cell / 2} cy={r * (cell + gap) + cell / 2} r={cell / 2}
-            fill={lit ? col : 'none'} stroke={lit ? col : color.inkFaint} strokeWidth={2} />;
+            fill={lit ? col : 'none'} stroke={lit ? col : color.inkFaint} strokeWidth={3} />;
         })}
       </svg>
-      {caption && <div style={{fontFamily: font.serif, fontSize: 64, fontWeight: 600, color: col, marginTop: 16, ...num}}>{caption(pct)}</div>}
+      {caption && <div style={{fontFamily: font.serif, fontSize: 140, lineHeight: 1, color: col, marginTop: 18, ...num}}>{caption(pct)}</div>}
     </div>
   );
 };
