@@ -45,3 +45,4 @@ episodes/*/out/*.wav
 models/
 episodes/*/out/*_raw.mp4
 models
+__pycache__/
