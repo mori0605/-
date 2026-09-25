@@ -88,7 +88,7 @@ export const FullFade: React.FC<{at: number; dur?: number; col?: string}> = ({at
  * Keeping all words in one place stops the eye from hunting around the frame.
  */
 export const Caption: React.FC<{items: {at: number; text: React.ReactNode}[]; x?: number; y?: number; size?: number; dark?: boolean; out?: number}> =
-  ({items, x = 120, y = 96, size = 60, dark, out}) => {
+  ({items, x = 110, y = 70, size = 84, dark, out}) => {
   const t = useT();
   const endFade = out === undefined ? 1 : 1 - ramp(t, out, 0.4);
   return (
@@ -99,8 +99,8 @@ export const Caption: React.FC<{items: {at: number; text: React.ReactNode}[]; x?
         if (o <= 0.001) return null;
         return (
           <div key={i} style={{position: 'absolute', left: x, top: y, width: 1920 - 2 * x, opacity: o,
-            transform: `translateY(${(1 - ramp(t, it.at, 0.45)) * 18}px)`, fontFamily: font.sans, fontWeight: 600, fontSize: size,
-            lineHeight: 1.15, color: dark ? color.nightText : color.ink}}>{it.text}</div>
+            transform: `translateY(${(1 - ramp(t, it.at, 0.45)) * 18}px)`, fontFamily: font.sans, fontWeight: 800, fontSize: size, letterSpacing: '-0.01em',
+            lineHeight: 1.08, color: dark ? color.nightText : color.ink}}>{it.text}</div>
         );
       })}
     </>

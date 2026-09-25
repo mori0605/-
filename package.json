@@ -8,6 +8,8 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/archivo": "^5.3.0",
+    "@fontsource/dm-serif-display": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
     "@fontsource/source-serif-4": "^5.3.0",
     "@remotion/bundler": "^4.0.529",

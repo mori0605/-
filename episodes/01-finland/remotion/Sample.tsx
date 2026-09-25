@@ -1,114 +1,147 @@
 /**
- * 30-second style sample (P02–P03) for the v2 look:
- * male voice, a visual change roughly every 2–3 s, larger type, virtual camera.
+ * Style sample v4 (P02–P04).
+ * Rules: two typefaces, heavy and large; one caption slot + one focal element; captions change rarely;
+ * data appears fast (no roll-call of values); constant motion; the eye is led along one path:
+ * Helsinki → 548 → start of the line → end of the line → −79.
  */
 import React from 'react';
 import {AbsoluteFill, Audio, Sequence, staticFile} from 'remotion';
 import tlJson from '../audio_sample/timeline.json';
 import {makeCues, CueProvider, useCues, Timeline} from '../../../engine/timeline';
-import {
-  Paper, WorldMap, ISO, SourceTag, StatCallout, LineChart, Camera, CircleMarker, Caption,
-} from '../../../engine/components';
-import {useT, ramp} from '../../../engine/anim';
-import {color, FPS} from '../../../engine/theme';
+import {Paper, WorldMap, ISO, SourceTag, Camera, CircleMarker, Caption, QuickLine} from '../../../engine/components';
+import {useT, ramp, lerp, fmt} from '../../../engine/anim';
+import {color, font, num, FPS} from '../../../engine/theme';
 import {scores} from './data.gen';
 
 const tl = tlJson as Timeline;
 const cues = makeCues(tl);
 const M = scores.FIN.math;
 const C_FIN = color.vermilion;
+const HEL: [number, number] = [24.94, 60.17];
 
-// chart geometry in scene space (used by camera focus points)
-const CH = {x: 180, y: 250, w: 1320, h: 640, x0: 2004.5, x1: 2026.5, y0: 440, y1: 570};
-const px = (yr: number) => CH.x + ((yr - CH.x0) / (CH.x1 - CH.x0)) * CH.w;
+// chart geometry (scene space)
+const CH = {x: 190, y: 300, w: 1080, h: 540, x0: 2004.5, x1: 2026.5, y0: 452, y1: 560};
+const px = (v: number) => CH.x + ((v - CH.x0) / (CH.x1 - CH.x0)) * CH.w;
 const py = (v: number) => CH.y + ((CH.y1 - v) / (CH.y1 - CH.y0)) * CH.h;
+const YRS = [2006, 2009, 2012, 2015, 2018, 2022, 2025] as const;
 
-/** World mode opener: “They came to see a miracle.” */
+/** World mode: visitors' flight paths converge on Helsinki. */
 const MapOpen: React.FC = () => {
   const {c} = useCues();
+  const origins: [number, number][] = [[-9, 52], [2.3, 48.9], [-3.7, 40.4], [12.5, 41.9], [13.4, 52.5], [21, 52.2], [-25, 60], [4.9, 52.4]];
   return (
     <AbsoluteFill>
-      <WorldMap kind="nordic" keys={[{t: 0, lon: 14, lat: 57, k: 0.45}, {t: 3.2, lon: 25, lat: 62, k: 1.3}]}
-        highlights={[{id: ISO.FIN, col: C_FIN, at: 0.2}]} />
-      <Caption dark items={[{at: c('P02', 'miracle.') - 0.2, text: 'The Finnish miracle'}]} size={84} />
+      <WorldMap kind="nordic"
+        keys={[{t: 0, lon: 12, lat: 55, k: 0.42}, {t: 6.5, lon: 23.5, lat: 61.2, k: 1.05}]}
+        highlights={[{id: ISO.FIN, col: C_FIN, at: c('P02', 'miracle.') - 0.3, opacity: 0.8}]}
+        arcs={origins.map((o, i) => ({from: o, to: HEL, at: 0.1 + i * 0.28, dur: 1.5, col: color.nightText}))}
+        pulses={[{lon: HEL[0], lat: HEL[1], at: 1.4, col: color.nightText}]} />
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(14,15,17,0.85) 0%, rgba(14,15,17,0) 26%)'}} />
+      <Caption dark items={[{at: c('P02', 'miracle.') - 0.4, text: 'The Finnish miracle'}]} />
     </AbsoluteFill>
   );
 };
 
-/** Paper: 2006 → 548. Two text places only: the caption slot and the number. */
-const Miracle: React.FC = () => {
-  const {c} = useCues();
+/** Paper: 548 → the line → −79, as one continuous shot. */
+const Story: React.FC = () => {
+  const {c, pe} = useCues();
+  const t = useT();
   const k548 = c('P02', '548');
-  return (
-    <Paper>
-      <Camera keys={[
-        {t: 0, x: 960, y: 560, k: 1.06},
-        {t: c('P02', 'Finnish'), x: 960, y: 560, k: 1.0, dur: 1.5},
-        {t: k548, x: 960, y: 590, k: 1.06, dur: 1.0},
-        {t: c('P02', 'reformers'), x: 960, y: 620, k: 1.08, dur: 1.6},
-        {t: c('P02', 'destination.'), x: 960, y: 580, k: 1.04, dur: 1.2},
-      ]}>
-        <StatCallout value={548} from={380} at={k548} dur={1.2} x={960} y={700} size={380} col={C_FIN} />
-        <CircleMarker x={960} y={600} r={335} at={c('P02', 'reformers')} width={7} />
-      </Camera>
-      <Caption items={[
-        {at: c('P02', '2006,'), text: 'Finland, 2006'},
-        {at: c('P02', 'Finnish'), text: '15-year-olds, PISA maths'},
-        {at: c('P02', 'largest'), text: "The world's largest school test"},
-        {at: c('P02', 'reformers'), text: <>Every reformer&apos;s <span style={{color: C_FIN}}>destination</span></>},
-      ]} />
-      <SourceTag text="OECD, PISA 2006" />
-    </Paper>
-  );
-};
+  const kNow = c('P03', 'Now');
+  const lineStart = kNow + 0.9;
+  const kFall = c('P04', 'fall');
+  const k79 = c('P04', '79');
+  const kYard = c('P04', 'yardstick,');
+  const kThree = c('P04', 'three');
 
-/** Paper: the fall. The only moving label rides the head of the line (score and points lost). */
-const Fall: React.FC = () => {
-  const {c} = useCues();
-  const yrs = [2006, 2009, 2012, 2015, 2018, 2022, 2025] as const;
-  const at = [0.1, c('P03', '541.'), c('P03', '519.'), c('P03', '511.'), c('P03', '507.'), c('P03', '484.'), c('P03', '469.')];
-  const kAnd = c('P03', 'And');
-  const follow = yrs.slice(0, 6).map((y, i) => ({t: at[i] - 0.3, x: px(y) + 120, y: py(M[y]) + 40, k: 1.45, dur: 1.1}));
+  // 548: count-up at centre, then flies to the start of the line
+  const fly = ramp(t, kNow, 1.0);
+  const bigX = lerp(960, px(2006) - 10, fly);
+  const bigY = lerp(650, py(548) - 56, fly);
+  const bigSize = lerp(380, 76, fly);
+  const count = lerp(380, 548, ramp(t, k548, 1.3));
+  const bounce = 1 + 0.06 * Math.sin(Math.min(Math.PI, Math.max(0, t - k548 - 1.1) * 6));
+
+  // −79 bracket in the right-hand zone (never over the line)
+  const bx = 1440;
+  const br = ramp(t, kFall, 0.8);
+  const drop = Math.round(lerp(0, 79, ramp(t, k79, 1.0)));
+  const yearTicks = [1, 2, 3].map((n) => py(548 - 22 * n));
+
   return (
     <Paper>
-      <Camera keys={[
-        {t: 0, x: px(2006) + 200, y: py(548) + 80, k: 1.6},
-        ...follow,
-        {t: kAnd, x: 960, y: 560, k: 1.0, dur: 2.2},
-        {t: at[6] - 0.2, x: 930, y: 590, k: 1.03, dur: 0.9},
+      <Camera breathe={0.008} keys={[
+        {t: 0, x: 960, y: 560, k: 1.08},
+        {t: k548, x: 960, y: 560, k: 1.0, dur: 1.4},
+        {t: c('P02', 'largest'), x: 960, y: 560, k: 1.05, dur: 3},
+        {t: c('P02', 'reformers'), x: 960, y: 580, k: 1.07, dur: 2},
+        {t: kNow, x: 860, y: 580, k: 1.0, dur: 1.0},
+        {t: lineStart + 1.6, x: 900, y: 600, k: 1.04, dur: 4},
+        {t: c('P03', 'results'), x: 1050, y: 660, k: 1.12, dur: 3},
+        {t: kFall - 0.4, x: 990, y: 580, k: 1.0, dur: 1.2},
+        {t: c('P04', 'So'), x: 1070, y: 580, k: 1.05, dur: 4},
       ]}>
-        <LineChart x={CH.x} y={CH.y} w={CH.w} h={CH.h} xDomain={[CH.x0, CH.x1]} yDomain={[CH.y0, CH.y1]} fs={1.7}
-          xTicks={[2006, 2025]} yTicks={[]} appear={0}
-          series={[{id: 'fin', col: C_FIN, width: 9, valueLabels: 'last',
-            labelFmt: (p) => (p.y === 548 ? '548' : `${p.y}  (−${548 - p.y})`),
-            points: yrs.map((y, i) => ({x: y, y: M[y], at: at[i], big: true, labelPos: 'right'}))}]} />
-        <CircleMarker x={px(2025)} y={py(469)} r={46} at={at[6] + 0.4} />
+        {/* 548 hero number (serif), becomes the start label */}
+        <div style={{position: 'absolute', left: bigX - 700, top: bigY - bigSize * 0.62, width: 1400, textAlign: 'center',
+          fontFamily: fly > 0.5 ? font.sans : font.serif, fontWeight: fly > 0.5 ? 800 : 400, fontSize: bigSize, lineHeight: 1, color: C_FIN,
+          opacity: ramp(t, k548 - 0.2, 0.3), transform: `scale(${bounce})`, ...num}}>
+          {fmt(Math.round(count))}
+        </div>
+        <CircleMarker x={960} y={590} r={350} at={c('P02', 'reformers')} out={kNow - 0.4} width={8} />
+        <div style={{position: 'absolute', left: 960 - 330 * ramp(t, k548 + 1.3, 0.6), top: 790, height: 14, borderRadius: 7,
+          width: 660 * ramp(t, k548 + 1.3, 0.6), background: C_FIN, opacity: 1 - ramp(t, c('P02', 'reformers') - 0.3, 0.4)}} />
+
+        <QuickLine x={CH.x} y={CH.y} w={CH.w} h={CH.h} xDomain={[CH.x0, CH.x1]} yDomain={[CH.y0, CH.y1]}
+          points={YRS.map((y) => ({x: y, y: M[y]}))} start={lineStart} dur={1.6} xTicks={[2006, 2025]} axisAt={kNow + 0.5}
+          startLabel={false} endLabelAt={lineStart + 1.5} stepArrowsAt={c('P03', 'Not')}
+          dim={{at: kFall, to: 0.35}} />
+        <CircleMarker x={px(2025)} y={py(469)} r={48} at={c('P03', '469.')} out={kFall} width={7} />
+
+        {/* the drop, in its own zone */}
+        <svg style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}} width={1920} height={1080}>
+          <g opacity={ramp(t, kFall, 0.3)}>
+            <line x1={px(2006) + 40} x2={bx} y1={py(548)} y2={py(548)} stroke={color.inkFaint} strokeWidth={3} strokeDasharray="10 10" />
+            <line x1={bx} x2={bx} y1={py(548)} y2={py(548) + (py(469) - py(548)) * br} stroke={C_FIN} strokeWidth={10} strokeLinecap="round" />
+            {yearTicks.map((yy, i) => (
+              <line key={i} x1={bx - 26} x2={bx + 26} y1={yy} y2={yy} stroke={C_FIN} strokeWidth={8} strokeLinecap="round"
+                opacity={ramp(t, kYard + 0.9 + i * 0.35, 0.3)} />
+            ))}
+          </g>
+        </svg>
+        <div style={{position: 'absolute', left: bx + 60, top: py(548) - 10, opacity: ramp(t, k79 - 0.1, 0.3)}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: 14}}>
+            <div style={{width: 70, height: 20, background: C_FIN, borderRadius: 3, marginTop: 20}} />
+            <div style={{fontFamily: font.serif, fontSize: 210, lineHeight: 1, color: C_FIN, ...num}}>{drop}</div>
+          </div>
+          <div style={{fontFamily: font.sans, fontWeight: 800, fontSize: 52, color: color.ink, marginTop: 6}}>points</div>
+          <div style={{fontFamily: font.sans, fontWeight: 800, fontSize: 64, lineHeight: 1.05, color: color.ink, marginTop: 40,
+            opacity: ramp(t, kThree, 0.4), transform: `translateY(${(1 - ramp(t, kThree, 0.5)) * 20}px)`}}>
+            ≈ 3 years<br /><span style={{color: C_FIN}}>of learning</span>
+          </div>
+        </div>
       </Camera>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 230, background: `linear-gradient(180deg, ${color.paper} 60%, rgba(244,239,227,0))`}} />
-      <Caption items={[
-        {at: 0.1, text: 'Finland, PISA maths'},
-        {at: c('P03', 'published'), text: 'Results published September 2026'},
-        {at: at[6] + 0.3, text: <><span style={{color: C_FIN}}>−79 points</span> since 2006</>},
+      {/* caption slot: few, longer-lasting lines */}
+      <AbsoluteFill style={{background: `linear-gradient(180deg, ${color.paper} 0%, ${color.paper} 17%, rgba(244,239,227,0) 24%)`}} />
+      <Caption out={pe('P04') + 5} items={[
+        {at: k548, text: "Finland's maths score, 2006"},
+        {at: lineStart, text: 'Lower in every round since'},
+        {at: kYard, text: <>22 points ≈ <span style={{color: C_FIN}}>one year</span> of school</>},
       ]} />
-      <SourceTag text="OECD PISA 2006–2025" />
+      <SourceTag text={t < kNow ? 'OECD, PISA 2006' : 'OECD PISA 2006–2025; OECD (2026): 22 points ≈ 1 year'} />
     </Paper>
   );
 };
 
 export const Sample: React.FC = () => {
-  const s1 = 0, e1 = cues.word('P02', '2006,') - 0.1; // map → dip → paper
-  const s3 = cues.para('P03').start - 0.25;
+  const mapEnd = cues.word('P02', '548') - 0.3;
   const f = (s: number) => Math.round(s * FPS);
   return (
     <AbsoluteFill style={{backgroundColor: color.night}}>
-      <Sequence from={f(s1)} durationInFrames={f(e1 - s1)}>
-        <FadeOut at={e1 - s1 - 0.4}><CueProvider cues={cues} offset={s1}><MapOpen /></CueProvider></FadeOut>
+      <Sequence from={0} durationInFrames={f(mapEnd)}>
+        <Fade out={mapEnd - 0.45}><CueProvider cues={cues} offset={0}><MapOpen /></CueProvider></Fade>
       </Sequence>
-      <Sequence from={f(e1)} durationInFrames={f(s3 + 0.5 - e1)}>
-        <FadeIn at={0} dur={0.4}><CueProvider cues={cues} offset={e1}><Miracle /></CueProvider></FadeIn>
-      </Sequence>
-      <Sequence from={f(s3)} durationInFrames={f(tl.duration - s3)}>
-        <FadeIn at={0} dur={0.5}><CueProvider cues={cues} offset={s3}><Fall /></CueProvider></FadeIn>
+      <Sequence from={f(mapEnd - 0.05)} durationInFrames={f(tl.duration - mapEnd + 0.05)}>
+        <Fade in={0}><CueProvider cues={cues} offset={mapEnd - 0.05}><Story /></CueProvider></Fade>
       </Sequence>
       <Audio src={staticFile('narration_sample.wav')} />
       <Audio src={staticFile('bgm_sample.wav')} />
@@ -116,13 +149,10 @@ export const Sample: React.FC = () => {
   );
 };
 
-const FadeIn: React.FC<{at: number; dur?: number; children: React.ReactNode}> = ({at, dur = 0.5, children}) => {
+const Fade: React.FC<{in?: number; out?: number; children: React.ReactNode}> = (p) => {
   const t = useT();
-  return <AbsoluteFill style={{opacity: ramp(t, at, dur)}}>{children}</AbsoluteFill>;
-};
-const FadeOut: React.FC<{at: number; dur?: number; children: React.ReactNode}> = ({at, dur = 0.4, children}) => {
-  const t = useT();
-  return <AbsoluteFill style={{opacity: 1 - ramp(t, at, dur)}}>{children}</AbsoluteFill>;
+  const o = (p.in === undefined ? 1 : ramp(t, p.in, 0.4)) * (p.out === undefined ? 1 : 1 - ramp(t, p.out, 0.4));
+  return <AbsoluteFill style={{opacity: o}}>{p.children}</AbsoluteFill>;
 };
 
 export const sampleFrames = () => Math.ceil(tl.duration * FPS);

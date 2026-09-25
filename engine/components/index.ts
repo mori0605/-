@@ -8,3 +8,4 @@ export * from './LineChart';
 export * from './EraTimeline';
 export * from './WorldMap';
 export * from './Motion';
+export * from './QuickLine';

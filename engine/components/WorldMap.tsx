@@ -22,8 +22,11 @@ const makeProjection = (kind: 'world' | 'nordic'): GeoProjection =>
  * World mode basemap: dark, desaturated land on a near-black sea, faint graticule.
  * The camera always moves (Ken Burns) between keyframes given in lon/lat + zoom.
  */
-export const WorldMap: React.FC<{kind?: 'world' | 'nordic'; keys: Key[]; highlights?: Highlight[]; labels?: MapLabel[]; children?: React.ReactNode}> =
-  ({kind = 'world', keys, highlights = [], labels = []}) => {
+export type Arc = {from: [number, number]; to: [number, number]; at: number; dur?: number; col?: string};
+export type Pulse = {lon: number; lat: number; at: number; col?: string};
+
+export const WorldMap: React.FC<{kind?: 'world' | 'nordic'; keys: Key[]; highlights?: Highlight[]; labels?: MapLabel[]; arcs?: Arc[]; pulses?: Pulse[]; children?: React.ReactNode}> =
+  ({kind = 'world', keys, highlights = [], labels = [], arcs = [], pulses = []}) => {
   const t = useT();
   const {paths, proj, grat, outline} = useMemo(() => {
     const proj = makeProjection(kind);
@@ -71,8 +74,29 @@ export const WorldMap: React.FC<{kind?: 'world' | 'nordic'; keys: Key[]; highlig
             return <path key={'h' + p.id + p.d.length} d={p.d} fill={h.col} fillOpacity={(h.opacity ?? 0.72) * fade(t, h.at, h.out, 0.8)}
               stroke={h.col} strokeOpacity={fade(t, h.at, h.out, 0.8)} strokeWidth={1.5} vectorEffect="non-scaling-stroke" />;
           })}
+          {arcs.map((a, i) => {
+            const [x0, y0] = proj(a.from) as [number, number];
+            const [x1, y1] = proj(a.to) as [number, number];
+            const mx = (x0 + x1) / 2, my = (y0 + y1) / 2 - Math.hypot(x1 - x0, y1 - y0) * 0.28;
+            const p = ramp(t, a.at, a.dur ?? 1.6);
+            const len = Math.hypot(x1 - x0, y1 - y0) * 1.25;
+            return <path key={'a' + i} d={`M${x0},${y0} Q${mx},${my} ${x1},${y1}`} fill="none" stroke={a.col ?? color.nightText}
+              strokeOpacity={0.75 * (1 - ramp(t, a.at + (a.dur ?? 1.6) + 1.2, 1))} strokeWidth={2.5 / cam.k * 1} strokeDasharray={len} strokeDashoffset={len * (1 - p)} strokeLinecap="round" />;
+          })}
         </g>
       </svg>
+      {pulses.map((pl, i) => {
+        const [sx, sy] = toScreen(pl.lon, pl.lat);
+        const ph = ((t - pl.at) % 1.8) / 1.8;
+        if (t < pl.at) return null;
+        return (
+          <div key={'p' + i} style={{position: 'absolute', left: sx, top: sy}}>
+            <div style={{position: 'absolute', left: -10, top: -10, width: 20, height: 20, borderRadius: 10, background: pl.col ?? color.nightText}} />
+            <div style={{position: 'absolute', left: -60 * ph, top: -60 * ph, width: 120 * ph, height: 120 * ph, borderRadius: '50%',
+              border: `4px solid ${pl.col ?? color.nightText}`, opacity: 1 - ph}} />
+          </div>
+        );
+      })}
       {labels.map((l, i) => {
         const [sx, sy] = toScreen(l.lon, l.lat);
         return (

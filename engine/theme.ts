@@ -1,11 +1,9 @@
 // Channel design tokens (CLAUDE.md §5). Every component reads from here.
 import {Easing} from 'remotion';
-import '@fontsource/source-serif-4/400.css';
-import '@fontsource/source-serif-4/600.css';
-import '@fontsource/source-serif-4/400-italic.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
+import '@fontsource/dm-serif-display/400.css';
+import '@fontsource/archivo/600.css';
+import '@fontsource/archivo/800.css';
+import '@fontsource/archivo/900.css';
 
 export const color = {
   ink: '#1B1B1B',
@@ -25,9 +23,10 @@ export const color = {
   indigoOnNight: '#5A7FCC',
 };
 
+// Two typefaces only: DM Serif Display for hero numbers, Archivo (heavy) for every word.
 export const font = {
-  serif: '"Source Serif 4", "Noto Serif", Georgia, serif',
-  sans: 'Inter, "Helvetica Neue", Arial, sans-serif',
+  serif: '"DM Serif Display", Georgia, serif',
+  sans: 'Archivo, "Helvetica Neue", Arial, sans-serif',
 };
 
 export const num: React.CSSProperties = {fontVariantNumeric: 'tabular-nums', fontFeatureSettings: '"tnum"'};

@@ -13,8 +13,8 @@ refs: F-VIS-1, F-VIS-2
 **P02** They came to see a miracle. In 2006, Finnish fifteen-year-olds scored 548 points in mathematics on the world's largest school test. For reformers everywhere, that number became a destination.
 refs: F-FIN-M-2006
 
-**P03** Now watch what happened next. 541. 519. 511. 507. 484. And in the results published in September 2026 … 469.
-refs: F-FIN-M-2009..2025
+**P03** Now watch what happened next. The score slipped, then kept sliding. Not one PISA round since 2006 has gone Finland's way. In the results published in September 2026, it reached 469.
+refs: F-FIN-M-2006..2025 (each round lower than the last)
 
 **P04** That is a fall of 79 points. By the OECD's own rough yardstick, about 22 points is a year of learning. So today's Finnish fifteen-year-olds are, very roughly, three years of maths behind the teenagers of 2006.
 refs: F-FIN-DROP-M, F-OECD-YARD, F-DERIV-YEARS
@@ -52,7 +52,7 @@ refs: F-COHORT, F-DECENT
 
 ## ACT 2 — THE FALL
 
-**P14** Here is Finland's maths score, round by round. 544 in 2003. A peak of 548 in 2006. Then down in every single round after that, to 469 in 2025.
+**P14** Here is the whole maths record. A small climb to the 2006 peak, then a lower score in every round since. The slope isn't a blip. It's a trend that has run for almost twenty years.
 refs: F-FIN-M-2003..2025
 
 **P15** Reading tells the same story. From a peak of 547 in 2006 to 474 today, level with Italy, in joint seventeenth place. Science has held up best: 563 in 2006, 504 now, twelfth in the world. The fall is real, but so is the altitude. Finland is still above the OECD average in all three subjects.
