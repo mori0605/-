@@ -1,0 +1,5 @@
+country,year,subject,measure,value_pct,fact_id,status,source_url,retrieved
+FIN,2003,math,top_performers_L5plus,23,F-FIN-TOP-2003,search_confirmed,https://www.helsinkitimes.fi/themes/themes/education/29247-finland-s-pisa-scores-fall-again-in-reading-and-maths.html,2026-09-25
+FIN,2025,math,top_performers_L5plus,7,F-FIN-TOP-2025,search_confirmed,https://www.helsinkitimes.fi/themes/themes/education/29247-finland-s-pisa-scores-fall-again-in-reading-and-maths.html,2026-09-25
+FIN,2006,math,low_performers_belowL2,7,F-FIN-LOW-2006,search_confirmed,https://www.jyu.fi/en/news/pisa-2022-performance-fell-both-in-finland-and-in-nearly-all-other-oecd-countries,2026-09-25
+FIN,2022,math,low_performers_belowL2,25,F-FIN-LOW-2022,search_confirmed,https://www.jyu.fi/en/news/pisa-2022-performance-fell-both-in-finland-and-in-nearly-all-other-oecd-countries,2026-09-25
