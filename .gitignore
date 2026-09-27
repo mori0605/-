@@ -49,3 +49,4 @@ __pycache__/
 episodes/*/audio/music/*.mp3
 episodes/*/audio/music/*.wav
 episodes/*/out/split/
+.venv/

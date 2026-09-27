@@ -15,9 +15,14 @@ What you need:
 git clone -b claude/stoic-hopper-0oha8u https://github.com/mori0605/-.git hidden-forces
 cd hidden-forces
 npm ci                                   # Remotion and fonts
+python3 -m venv .venv                    # Python 3.10+ required (on macOS: brew install python@3.12 → python3.12 -m venv .venv)
+source .venv/bin/activate                # Windows: .venv\Scripts\activate
 pip install -r requirements.txt          # TTS, alignment and audio tools
-python3 tools/setup_models.py            # download speech models (~650 MB) into ./models
+python tools/setup_models.py             # download speech models (~650 MB) into ./models
 ```
+
+> Each time you open a new terminal, run `source .venv/bin/activate` first. Inside the venv, use `python` (not `python3`).
+> Error `No module named 'numpy'` means the venv isn't active, or the `pip install` step hasn't been run yet.
 
 > On Windows, run these in PowerShell or Git Bash. If `python3` doesn't work, use `python` instead.
 > The first render may download a Chrome for Remotion automatically (~100 MB).
@@ -26,10 +31,10 @@ python3 tools/setup_models.py            # download speech models (~650 MB) into
 
 | What you want | Command |
 |---|---|
-| Build the 25-second style sample (P02–P04) | `python3 tools/pipeline.py sample` |
-| Build the full episode | `python3 tools/pipeline.py episode` |
-| Use your own BGM | `python3 tools/pipeline.py episode --bgm path/to/music.mp3` |
-| No BGM | `python3 tools/pipeline.py episode --bgm none` |
+| Build the 25-second style sample (P02–P04) | `python tools/pipeline.py sample` |
+| Build the full episode | `python tools/pipeline.py episode` |
+| Use your own BGM | `python tools/pipeline.py episode --bgm path/to/music.mp3` |
+| No BGM | `python tools/pipeline.py episode --bgm none` |
 | Re-render only (keep existing audio) | add `--skip-tts` |
 | Thumbnails | `npm run thumbs` |
 | Preview in the browser and edit visually | `npm run studio` |
