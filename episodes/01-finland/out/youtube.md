@@ -6,9 +6,9 @@ A title and its thumbnail should not repeat each other: the thumbnail shows *wha
 
 | # | Title (characters) | Pairs with | Why it pulls |
 |---|---|---|---|
-| **1 (recommended)** | Everyone Copied Finland. They Copied the Wrong Part. (51) | `thumb1.png` (crash 548 → 469) | The thumbnail shows the crash; the title says the cause was "the wrong part" → curiosity gap: *which part?* Answered in Act 3 / Resolution |
+| **1 (recommended)** | Everyone Copied Finland. They Copied the Wrong Part. (52) | `thumb1.png` (crash 548 → 469) | The thumbnail shows the crash; the title says the cause was "the wrong part" → curiosity gap: *which part?* Answered in Act 3 / Resolution |
 | 2 | The World Copied Finland's Schools. Then Finland Fell Apart. (60) | `thumb2.png` (struck-out MIRACLE) | Twist structure (rise → fall); reflects the brief's original title |
-| 3 | Finland Had the Best Schools on Earth. What Happened? (52) | `thumb2.png` | Plain question, broad reach |
+| 3 | Finland Had the Best Schools on Earth. What Happened? (53) | `thumb2.png` | Plain question, broad reach |
 | 4 | How Estonia Overtook Finland's 'Perfect' Schools (48) | `thumb3.png` (Overtaken.) | Neighbour rivalry and a specific claim; delivered by the Act 2 original analysis |
 | 5 | Finland's Test Scores Have Fallen Every Round Since 2006 (56) | `thumb1.png` | Hard-fact title for searchers |
 
