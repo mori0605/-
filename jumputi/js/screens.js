@@ -90,11 +90,11 @@ const UI = (() => {
       <div class="tt-logo">
         <div class="tt-l1">ジャンプチ</div>
         <div class="tt-l2">ヒーローズ</div>
-        <div class="tt-sub">ファンメイド再現版</div>
+        <div class="tt-sub">個人用 再現版</div>
       </div>
       <div class="tt-parade">${parade.map((id, i) => `<img src="${Art.url(HERO_MAP[id])}" style="animation-delay:${i * -0.21}s" alt="">`).join('')}</div>
       <div class="tt-tap">TAP TO START</div>
-      <div class="tt-note">※ サービス終了したゲームを遊び方だけ再現したファンメイド作品です。<br>登場キャラクターはすべて名前・外見を変えたパロディです。</div>`;
+      <div class="tt-note">※ サービス終了したゲームを個人で楽しむために再現した非公開のファンメイド作品です。</div>`;
     app().appendChild(s);
     s.addEventListener('click', () => {
       Sfx.unlock(); Sfx.ok();
@@ -632,10 +632,18 @@ const UI = (() => {
       <div class="cd-sk"><b class="lbl">必殺ワザ</b><span>${h.h.n}</span><small>${describeHissatsu(h.h)}${u.wl > 1 ? `　(ワザLvボーナス+${(u.wl - 1) * 10}%)` : ''}</small></div>
       <div class="cd-sk"><b class="lbl y">友情ワザ</b><span>${h.y.n}</span><small>${describeEffects(h.y.ef)}　チャージ${ycd}ターン</small></div>
       <div class="cd-sk"><b class="lbl t">特性</b><span>${h.t.n}</span><small>${describeTrait(h.t)}</small></div>
+      <div class="btns"><button class="btn gray sm" data-img="set">画像を変更</button>${Art.hasCustom(id) ? '<button class="btn gray sm" data-img="reset">元の絵に戻す</button>' : ''}</div>
+      <p class="sub">好きな画像（スマホの写真やスクショ）をキャラの絵として使えます。画像はこの端末のブラウザにだけ保存されます。</p>
       <div class="btns"><button class="btn gray" data-close>とじる</button>
         <button class="btn" data-lv="1" ${u.lv >= max ? 'disabled' : ''}>Lv+1<small>${coinI}${fmt(cost)}</small></button>
         <button class="btn" data-lv="10" ${u.lv >= max ? 'disabled' : ''}>Lv+10<small>${coinI}${fmt(lvCost(id, 10))}</small></button></div>`, 'wide detail');
     bg.addEventListener('click', e => {
+      const im = e.target.closest('[data-img]');
+      if (im) {
+        if (im.dataset.img === 'reset') { Art.setCustom(id, null); Sfx.ok(); bg.remove(); charaDetail(id); return; }
+        pickImage(id, () => { bg.remove(); charaDetail(id); });
+        return;
+      }
       const b = e.target.closest('[data-lv]');
       if (!b || b.disabled) return;
       const n = +b.dataset.lv;
@@ -652,6 +660,33 @@ const UI = (() => {
       charaDetail(id);
       tickHeader();
     });
+  }
+  // 画像を選んで縮小し、端末に保存
+  function pickImage(id, done) {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.addEventListener('change', () => {
+      const f = inp.files && inp.files[0];
+      if (!f) return;
+      const rd = new FileReader();
+      rd.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const max = 360, sc = Math.min(1, max / Math.max(img.width, img.height));
+          const cv = document.createElement('canvas');
+          cv.width = Math.round(img.width * sc); cv.height = Math.round(img.height * sc);
+          cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+          let data = cv.toDataURL('image/webp', 0.88);
+          if (!data.startsWith('data:image/webp')) data = /png|gif|webp/.test(f.type) ? cv.toDataURL('image/png') : cv.toDataURL('image/jpeg', 0.88);
+          if (Art.setCustom(id, data)) { Sfx.ok(); toast('画像を設定しました'); done(); }
+          else toast('保存容量がいっぱいです。他のキャラの画像を戻してください');
+        };
+        img.onerror = () => toast('この画像は読み込めませんでした');
+        img.src = rd.result;
+      };
+      rd.readAsDataURL(f);
+    });
+    inp.click();
   }
   function lvCost(id, n) {
     const u = Save.unit(id), max = Save.maxLv(id);

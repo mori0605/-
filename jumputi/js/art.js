@@ -478,7 +478,7 @@ const Art = (() => {
       const hc = c.hair ? c.hair.c : '#ffd23a';
       out.push(`<path d="M57 46 Q46 22 34 -10 Q54 10 63 44 Z" fill="${hc}" ${st}/><path d="M63 46 Q74 22 86 -10 Q66 10 57 44 Z" fill="${hc}" ${st}/>`);
     }
-    if (a.has('wingcap')) out.push(`<path d="M25 46 Q24 14 60 13 Q96 14 95 46 Q60 38 25 46 Z" fill="#e8343a" ${st}/><path d="M24 34 Q6 22 2 34 Q10 36 8 42 Q16 40 24 42 Z M96 34 Q114 22 118 34 Q110 36 112 42 Q104 40 96 42 Z" fill="#f4f4f4" ${st}/><text x="60" y="34" font-size="9" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">ARARA</text>`);
+    if (a.has('wingcap')) out.push(`<path d="M25 46 Q24 14 60 13 Q96 14 95 46 Q60 38 25 46 Z" fill="#e8343a" ${st}/><path d="M24 34 Q6 22 2 34 Q10 36 8 42 Q16 40 24 42 Z M96 34 Q114 22 118 34 Q110 36 112 42 Q104 40 96 42 Z" fill="#f4f4f4" ${st}/><text x="60" y="34" font-size="9" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">ARALE</text>`);
     if (a.has('hearthead')) out.push(`<path d="M22.5 50 Q60 40 97.5 50 L97.5 57 Q60 47 22.5 57 Z" fill="#2a8a3a" ${st}/><path d="M60 56 Q50 47 54 43 Q58 40.5 60 45 Q62 40.5 66 43 Q70 47 60 56 Z" fill="#2a8a3a" ${st}/>`);
     if (a.has('flower')) out.push(`<g transform="translate(86 40)"><circle r="7" fill="#ffd6e7" ${st}/><circle r="3" fill="#ffd34d"/></g>`);
     if (a.has('hairclip')) out.push(`<path d="M80 40 L92 36 L92 42 Z" fill="${c.clipC || '#f2c230'}" ${st}/>`);
@@ -706,15 +706,38 @@ const Art = (() => {
       `<rect width="400" height="160" fill="url(#${id})"/>${s.deco(s)}<rect y="140" width="400" height="20" fill="${s.ground}"/><path d="M0 140 L400 140" stroke="#000" stroke-opacity=".2" stroke-width="2"/></svg>`;
   }
 
+  // ---------- 自分で設定した画像 (端末内にだけ保存) ----------
+  const IMG_KEY = 'jumputi_img_';
+  const custom = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(IMG_KEY)) custom[k.slice(IMG_KEY.length)] = localStorage.getItem(k);
+    }
+  } catch (e) { /* 読めなくても続行 */ }
+  function setCustom(id, dataUrl) {
+    try {
+      if (dataUrl) localStorage.setItem(IMG_KEY + id, dataUrl);
+      else localStorage.removeItem(IMG_KEY + id);
+    } catch (e) { return false; }
+    if (dataUrl) custom[id] = dataUrl; else delete custom[id];
+    for (const k of [...urlCache.keys()]) if (k === id || k === 'face:' + id) urlCache.delete(k);
+    imgCache.delete('F' + id); imgCache.delete('B' + id);
+    return true;
+  }
+  const hasCustom = id => !!custom[id];
+
   // ---------- 公開 API ----------
   function svgOf(def) { return def.monster ? monster(def.monster) : chibi(def.art || def); }
   function url(def, key) {
+    if (def.id && custom[def.id]) return custom[def.id];
     const k = key || def.id || def.name;
     if (!urlCache.has(k)) urlCache.set(k, 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgOf(def)));
     return urlCache.get(k);
   }
   // 顔アップ用 (viewBox を切り替え)
   function faceUrl(def, key) {
+    if (def.id && custom[def.id]) return custom[def.id];
     const k = 'face:' + (key || def.id || def.name);
     if (!urlCache.has(k)) {
       const svg = svgOf(def).replace(`viewBox="${VIEW}"`, def.monster ? 'viewBox="8 18 104 104"' : 'viewBox="12 10 96 96"');
@@ -737,5 +760,5 @@ const Art = (() => {
     return urlCache.get(k);
   }
 
-  return { chibi, monster, url, faceUrl, image, sceneUrl, shade, hash, rng };
+  return { chibi, monster, url, faceUrl, image, sceneUrl, shade, hash, rng, setCustom, hasCustom };
 })();

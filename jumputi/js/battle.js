@@ -579,7 +579,9 @@ const Battle = (() => {
     if (img.complete && img.naturalWidth) {
       ctx.save();
       ctx.beginPath(); ctx.arc(X, Y, r * 0.86, 0, Math.PI * 2); ctx.clip();
-      ctx.drawImage(img, X - r * 0.95, Y - r * 0.9, r * 1.9, r * 1.9);
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      if (iw !== ih) { const q = Math.min(iw, ih); ctx.drawImage(img, (iw - q) / 2, 0, q, q, X - r * 0.9, Y - r * 0.9, r * 1.8, r * 1.8); }
+      else ctx.drawImage(img, X - r * 0.95, Y - r * 0.9, r * 1.9, r * 1.9);
       ctx.restore();
     }
     ctx.lineWidth = Math.max(2, r * 0.14);

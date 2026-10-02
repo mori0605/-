@@ -547,3 +547,5 @@ img { -webkit-user-drag: none; }
 .ms em.no { color: #aaa; }
 .ms.ok { border-color: #ff9a3a; background: #fff6e0; }
 .ms.got { opacity: .55; }
+
+.fc img, .bt-face img, .bt-sup img, .bt-legend img, .pt-legend img, .lg img, .st-en img, .gc-list img, .unit-info .ui-head img { object-fit: cover; object-position: center top; }
