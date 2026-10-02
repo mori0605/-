@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>ジャンプチ風パズル</title>
+<style>
+  :root {
+    --bg: #1b1530;
+    --panel: #2a2148;
+    --text: #fff;
+    --red: #ff4d5e; --blue: #3d8bff; --green: #34c96a; --yellow: #ffc23c; --purple: #a35cff;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+  html, body { margin: 0; height: 100%; background: #0e0b1a; color: var(--text);
+    font-family: "Hiragino Maru Gothic ProN", "M PLUS Rounded 1c", "Hiragino Sans", "Meiryo", sans-serif; }
+  #game { position: relative; max-width: 440px; height: 100dvh; margin: 0 auto; overflow: hidden;
+    display: flex; flex-direction: column;
+    background: linear-gradient(180deg, #3a2a6b 0%, #241a45 45%, var(--bg) 100%); }
+  #game.shake { animation: shake .35s; }
+  @keyframes shake { 0%,100%{transform:translate(0,0)} 20%{transform:translate(-8px,4px)} 40%{transform:translate(7px,-5px)} 60%{transform:translate(-5px,3px)} 80%{transform:translate(4px,-2px)} }
+  #flash { position: absolute; inset: 0; background: #ff2040; opacity: 0; pointer-events: none; z-index: 20; }
+  #flash.on { animation: flash .4s; }
+  @keyframes flash { 0%{opacity:.5} 100%{opacity:0} }
+
+  /* ---- 敵エリア ---- */
+  #top { flex: 1 1 auto; min-height: 170px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 16px 4px; }
+  #stageInfo { position: absolute; top: 8px; left: 12px; font-size: 13px; font-weight: bold; letter-spacing: .05em;
+    background: rgba(0,0,0,.35); padding: 3px 10px; border-radius: 99px; }
+  #turnInfo { position: absolute; top: 8px; right: 12px; font-size: 12px; background: rgba(0,0,0,.35); padding: 3px 10px; border-radius: 99px; }
+  #enemyTurn { font-size: 14px; font-weight: bold; background: #e0304a; padding: 2px 12px; border-radius: 99px; margin-bottom: 4px; box-shadow: 0 2px 0 #8a1023; }
+  #enemyTurn.danger { animation: pulse .6s infinite alternate; }
+  @keyframes pulse { to { transform: scale(1.15); } }
+  #enemy { font-size: 84px; line-height: 1.05; filter: drop-shadow(0 6px 6px rgba(0,0,0,.5)); transition: transform .15s, opacity .5s; }
+  #enemy.boss { font-size: 108px; }
+  #enemy.hit { animation: hit .25s; }
+  @keyframes hit { 0%{transform:translateX(0)} 30%{transform:translateX(10px) scale(.95); filter: brightness(2.5)} 60%{transform:translateX(-6px)} 100%{transform:translateX(0)} }
+  #enemy.dead { opacity: 0; transform: scale(1.4) rotate(15deg); }
+  #enemy.attack { animation: atk .4s; }
+  @keyframes atk { 40%{transform:translateY(30px) scale(1.3)} }
+  #enemyName { font-size: 14px; font-weight: bold; margin: 2px 0 4px; display: flex; gap: 6px; align-items: center; }
+  .attr { display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 12px; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.4); }
+  .bar { width: 100%; height: 12px; background: rgba(0,0,0,.5); border-radius: 99px; overflow: hidden; position: relative; border: 2px solid rgba(255,255,255,.25); }
+  .bar > div { height: 100%; transition: width .35s; }
+  #enemyHp { background: linear-gradient(90deg, #ff6b3d, #ff3d6b); width: 100%; }
+  #enemyHpBar { max-width: 300px; }
+
+  /* ---- チーム ---- */
+  #team { display: flex; gap: 6px; padding: 6px 10px 4px; justify-content: center; }
+  .member { flex: 1; max-width: 78px; position: relative; cursor: pointer; text-align: center; }
+  .face { aspect-ratio: 1; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 30px;
+    border: 3px solid rgba(255,255,255,.7); box-shadow: 0 3px 0 rgba(0,0,0,.35); position: relative; overflow: hidden; transition: transform .1s; }
+  .face .lv { position: absolute; bottom: 1px; right: 3px; font-size: 9px; font-weight: bold; text-shadow: 0 1px 2px #000; }
+  .member.bounce .face { animation: bounce .3s; }
+  @keyframes bounce { 40% { transform: translateY(-10px) scale(1.08); } }
+  .member.ready .face { border-color: #fff36b; animation: ready .7s infinite alternate; }
+  @keyframes ready { from { box-shadow: 0 0 4px #fff36b, 0 3px 0 rgba(0,0,0,.35); } to { box-shadow: 0 0 16px #fff36b, 0 3px 0 rgba(0,0,0,.35); } }
+  .member.ready::after { content: "SKILL"; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 9px; font-weight: bold;
+    background: #ffe23b; color: #5a3a00; padding: 1px 6px; border-radius: 99px; }
+  .gauge { height: 7px; margin-top: 4px; background: rgba(0,0,0,.5); border-radius: 99px; overflow: hidden; }
+  .gauge > div { height: 100%; width: 0; background: #ffe23b; transition: width .3s; }
+  .mname { font-size: 9px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85; }
+
+  #teamHpWrap { padding: 2px 14px 8px; }
+  #teamHpBar { height: 16px; }
+  #teamHp { background: linear-gradient(90deg, #3be37a, #9cf03a); width: 100%; }
+  #teamHpText { position: absolute; inset: 0; font-size: 11px; font-weight: bold; text-align: center; line-height: 12px; text-shadow: 0 1px 2px #000; }
+
+  /* ---- 盤面 ---- */
+  #boardWrap { flex: 0 0 auto; padding: 0 8px 10px; }
+  #board { display: block; width: 100%; border-radius: 14px; background: rgba(0,0,0,.35); box-shadow: inset 0 0 0 2px rgba(255,255,255,.12); touch-action: none; }
+
+  /* ---- 演出 ---- */
+  .float { position: absolute; z-index: 15; pointer-events: none; font-weight: 900; white-space: nowrap;
+    -webkit-text-stroke: 1px rgba(0,0,0,.6); text-shadow: 0 2px 0 rgba(0,0,0,.5); animation: floatUp .9s ease-out forwards; transform: translate(-50%, -50%); }
+  @keyframes floatUp { 0%{ opacity: 0; transform: translate(-50%,-30%) scale(.6);} 15%{ opacity: 1; transform: translate(-50%,-50%) scale(1.15);} 100%{ opacity: 0; transform: translate(-50%,-160%) scale(1);} }
+  .banner { position: absolute; left: 0; right: 0; top: 38%; z-index: 18; text-align: center; font-size: 34px; font-weight: 900; pointer-events: none;
+    color: #fff36b; -webkit-text-stroke: 2px #6a2c00; text-shadow: 0 4px 0 #6a2c00; animation: banner 1.1s ease-out forwards; }
+  @keyframes banner { 0%{ opacity:0; transform: scale(2);} 20%{opacity:1; transform: scale(1);} 80%{opacity:1;} 100%{opacity:0; transform: translateY(-20px);} }
+  .cutin { position: absolute; left: 0; right: 0; top: 30%; z-index: 19; height: 90px; display: flex; align-items: center; justify-content: center; gap: 12px;
+    pointer-events: none; animation: cutin .9s ease-out forwards; font-size: 24px; font-weight: 900; -webkit-text-stroke: 1px rgba(0,0,0,.5); }
+  .cutin .ic { font-size: 54px; }
+  @keyframes cutin { 0%{ transform: translateX(100%);} 20%{ transform: translateX(0);} 80%{ transform: translateX(0); opacity:1;} 100%{ transform: translateX(-100%); opacity: 0;} }
+
+  #overlay { position: absolute; inset: 0; z-index: 30; background: rgba(10,6,25,.82); display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 24px; }
+  #overlay.hidden { display: none; }
+  #overlay h1 { margin: 0 0 6px; font-size: 34px; color: #fff36b; -webkit-text-stroke: 1.5px #6a2c00; text-shadow: 0 4px 0 #6a2c00; }
+  #overlay h2 { margin: 0 0 12px; font-size: 28px; color: #fff36b; -webkit-text-stroke: 1px #6a2c00; text-shadow: 0 3px 0 #6a2c00; }
+  #overlay p { font-size: 13px; line-height: 1.7; opacity: .92; margin: 4px 0; }
+  #overlay .help { text-align: left; background: rgba(255,255,255,.07); border-radius: 12px; padding: 10px 14px; margin: 10px 0 16px; }
+  #overlay button { font: inherit; font-size: 20px; font-weight: 900; color: #5a3a00; background: linear-gradient(#ffe86b, #ffb92e);
+    border: none; border-radius: 99px; padding: 12px 40px; box-shadow: 0 5px 0 #b06d00; cursor: pointer; }
+  #overlay button:active { transform: translateY(3px); box-shadow: 0 2px 0 #b06d00; }
+</style>
+</head>
+<body>
+<div id="game">
+  <div id="top">
+    <div id="stageInfo">STAGE 1　WAVE 1/3</div>
+    <div id="turnInfo">ターン 0</div>
+    <div id="enemyTurn">あと<b id="enemyCount">3</b>ターン</div>
+    <div id="enemy">👾</div>
+    <div id="enemyName"><span class="attr" id="enemyAttr"></span><span id="enemyLabel"></span></div>
+    <div class="bar" id="enemyHpBar"><div id="enemyHp"></div></div>
+  </div>
+  <div id="team"></div>
+  <div id="teamHpWrap"><div class="bar" id="teamHpBar"><div id="teamHp"></div><span id="teamHpText"></span></div></div>
+  <div id="boardWrap"><canvas id="board"></canvas></div>
+  <div id="flash"></div>
+  <div id="overlay"></div>
+</div>
+
+<script>
+(() => {
+  // ================= 定数・データ =================
+  const COLS = 7, ROWS = 7;
+  const COLORS = ['red', 'blue', 'green', 'yellow', 'purple'];
+  const HEX = { red: '#ff4d5e', blue: '#3d8bff', green: '#34c96a', yellow: '#ffc23c', purple: '#a35cff' };
+  const LIGHT = { red: '#ffc0c6', blue: '#c4dcff', green: '#c2f5d3', yellow: '#fff0c0', purple: '#e3cbff' };
+  const DARK = { red: '#b3182b', blue: '#1450b8', green: '#16823c', yellow: '#c47f00', purple: '#6420c2' };
+  const ATTR_JP = { red: '火', blue: '水', green: '木', yellow: '光', purple: '闇' };
+  // 有利属性: 火→木→水→火、光⇔闇
+  const ADV = { red: 'green', green: 'blue', blue: 'red', yellow: 'purple', purple: 'yellow' };
+  const BOMB_SIZE = 6, HERO_SIZE = 10;
+
+  const TEAM_DEF = [
+    { name: '炎堂レン',   color: 'red',    icon: '👊', atk: 60, cost: 22, skill: '爆炎拳',   desc: '敵に特大ダメージ' },
+    { name: '水城ミオ',   color: 'blue',   icon: '🗡️', atk: 52, cost: 18, skill: '水流変化', desc: 'ランダムな8個のぷにを水属性に' },
+    { name: '森山タケル', color: 'green',  icon: '🌿', atk: 45, cost: 18, skill: '癒しの森', desc: 'チームHPを35%回復' },
+    { name: '雷電ライカ', color: 'yellow', icon: '⚡', atk: 50, cost: 20, skill: '雷光ボム', desc: 'ボムぷにを3個生成' },
+    { name: '黒羽シオン', color: 'purple', icon: '🌙', atk: 55, cost: 20, skill: '闇の帳',   desc: '敵の攻撃ターンを+2' },
+  ];
+  const ENEMIES = [['ゴブリン', '👺'], ['大ガエル', '🐸'], ['骸骨兵', '💀'], ['火トカゲ', '🦎'], ['機械兵', '🤖'],
+                   ['オオカミ', '🐺'], ['大ダコ', '🐙'], ['悪霊', '👻'], ['毒サソリ', '🦂'], ['宇宙人', '👾']];
+  const BOSSES = [['魔竜ヴァルガ', '🐲'], ['鬼王ガンキ', '👹'], ['邪神像', '🗿'], ['大魔王', '😈']];
+  const TEAM_MAX_HP = 3000;
+
+  // ================= 状態 =================
+  const $ = id => document.getElementById(id);
+  const gameEl = $('game'), canvas = $('board'), ctx = canvas.getContext('2d');
+  const rand = n => Math.floor(Math.random() * n);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  let grid = [];        // grid[x][y] = { color, kind: 'normal'|'bomb'|'hero', dy, vy, pop }
+  let CELL = 50;
+  let busy = true;
+  let hover = null;     // ハイライト対象のキー集合
+  let stage = 1, waveIdx = 0, waves = [], turn = 0;
+  let team = [], teamHp = TEAM_MAX_HP;
+
+  const enemy = () => waves[waveIdx];
+
+  // ================= 盤面 =================
+  const newCell = (color) => ({ color: color || COLORS[rand(COLORS.length)], kind: 'normal', dy: 0, vy: 0, pop: 0 });
+  const key = (x, y) => x * ROWS + y;
+  const inBoard = (x, y) => x >= 0 && y >= 0 && x < COLS && y < ROWS;
+
+  function initBoard() {
+    grid = [];
+    for (let x = 0; x < COLS; x++) {
+      grid.push([]);
+      for (let y = 0; y < ROWS; y++) {
+        const c = newCell();
+        c.dy = (ROWS + 1) * CELL + y * 6;  // 開始時に上から降らせる
+        grid[x].push(c);
+      }
+    }
+    ensureMoves(true);
+  }
+
+  function flood(sx, sy) {
+    const color = grid[sx][sy].color;
+    const seen = new Set([key(sx, sy)]), stack = [[sx, sy]], out = [];
+    while (stack.length) {
+      const [x, y] = stack.pop();
+      out.push([x, y]);
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nx = x + dx, ny = y + dy;
+        if (!inBoard(nx, ny) || seen.has(key(nx, ny))) continue;
+        if (grid[nx][ny].color !== color) continue;
+        seen.add(key(nx, ny));
+        stack.push([nx, ny]);
+      }
+    }
+    return out;
+  }
+
+  // タップ位置から消える全セルを求める (特殊ぷにの連鎖込み)
+  function collectRemoval(x, y) {
+    const cell = grid[x][y];
+    let start;
+    if (cell.kind === 'normal') {
+      start = flood(x, y);
+      if (start.length < 2) return null;
+    } else {
+      start = [[x, y]];
+    }
+    const set = new Map();
+    const queue = [];
+    const add = (i, j) => { const k = key(i, j); if (!set.has(k)) { set.set(k, [i, j]); queue.push([i, j]); } };
+    start.forEach(([i, j]) => add(i, j));
+    while (queue.length) {
+      const [i, j] = queue.shift();
+      const c = grid[i][j];
+      if (c.kind === 'bomb') {
+        for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) if (inBoard(i + dx, j + dy)) add(i + dx, j + dy);
+      } else if (c.kind === 'hero') {
+        for (let a = 0; a < COLS; a++) for (let b = 0; b < ROWS; b++) if (grid[a][b].color === c.color) add(a, b);
+      }
+    }
+    return { cells: [...set.values()], groupSize: start.length, tappedNormal: cell.kind === 'normal' };
+  }
+
+  function hasMove() {
+    for (let x = 0; x < COLS; x++) for (let y = 0; y < ROWS; y++) {
+      const c = grid[x][y];
+      if (c.kind !== 'normal') return true;
+      if (x + 1 < COLS && grid[x + 1][y].color === c.color) return true;
+      if (y + 1 < ROWS && grid[x][y + 1].color === c.color) return true;
+    }
+    return false;
+  }
+
+  function ensureMoves(silent) {
+    if (hasMove()) return;
+    do {
+      for (let x = 0; x < COLS; x++) for (let y = 0; y < ROWS; y++) grid[x][y].color = COLORS[rand(COLORS.length)];
+    } while (!hasMove());
+    if (!silent) banner('シャッフル!');
+  }
+
+  function applyGravity() {
+    for (let x = 0; x < COLS; x++) {
+      const col = grid[x];
+      const kept = [];
+      for (let y = ROWS - 1; y >= 0; y--) if (col[y] && !col[y].removed) kept.push([y, col[y]]);
+      const newCol = new Array(ROWS);
+      let ny = ROWS - 1;
+      for (const [oy, c] of kept) { c.dy += (ny - oy) * CELL; newCol[ny] = c; ny--; }
+      const missing = ny + 1;
+      for (let y = ny; y >= 0; y--) { const c = newCell(); c.dy = missing * CELL + 4; newCol[y] = c; }
+      grid[x] = newCol;
+    }
+  }
+
+  function waitFall() {
+    return new Promise(resolve => {
+      const check = () => {
+        for (let x = 0; x < COLS; x++) for (let y = 0; y < ROWS; y++) if (grid[x][y].dy > 0) return requestAnimationFrame(check);
+        resolve();
+      };
+      check();
+    });
+  }
+
+  // ================= 描画 =================
+  function resize() {
+    const w = canvas.parentElement.clientWidth - 16;
+    const topMin = 170 + 130;  // 敵エリア + チーム欄の最低高さ
+    const maxH = gameEl.clientHeight - topMin;
+    const size = Math.max(200, Math.min(w, maxH * COLS / ROWS));
+    const old = CELL;
+    CELL = size / COLS;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.style.width = size + 'px';
+    canvas.style.height = CELL * ROWS + 'px';
+    canvas.style.margin = '0 auto';
+    canvas.width = Math.round(size * dpr);
+    canvas.height = Math.round(CELL * ROWS * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (grid.length && old !== CELL) for (const col of grid) for (const c of col) c.dy *= CELL / old;
+  }
+
+  function drawPuni(cx, cy, r, c, t, highlight) {
+    const color = c.color;
+    // 影
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + r * 0.85, r * 0.7, r * 0.18, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,.25)';
+    ctx.fill();
+    // 本体 (少しつぶれた丸)
+    const g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.45, r * 0.1, cx, cy, r * 1.05);
+    g.addColorStop(0, LIGHT[color]);
+    g.addColorStop(0.45, HEX[color]);
+    g.addColorStop(1, DARK[color]);
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + r * 0.04, r, r * 0.92, 0, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+    if (highlight) { ctx.lineWidth = 3; ctx.strokeStyle = '#fff'; ctx.stroke(); }
+    // ツヤ
+    ctx.beginPath();
+    ctx.ellipse(cx - r * 0.35, cy - r * 0.45, r * 0.28, r * 0.15, -0.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,.7)';
+    ctx.fill();
+
+    if (c.kind === 'normal') {
+      // 顔
+      ctx.fillStyle = '#2a1830';
+      for (const s of [-1, 1]) {
+        ctx.beginPath();
+        ctx.ellipse(cx + s * r * 0.28, cy + r * 0.02, r * 0.1, r * 0.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#fff';
+      for (const s of [-1, 1]) {
+        ctx.beginPath();
+        ctx.arc(cx + s * r * 0.28 + r * 0.03, cy - r * 0.05, r * 0.04, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(cx, cy + r * 0.25, r * 0.12, 0.15 * Math.PI, 0.85 * Math.PI);
+      ctx.strokeStyle = '#2a1830';
+      ctx.lineWidth = Math.max(1.5, r * 0.06);
+      ctx.stroke();
+    } else {
+      const pulse = 0.5 + 0.5 * Math.sin(t / 180);
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * (1.02 + pulse * 0.08), 0, Math.PI * 2);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = c.kind === 'hero' ? `hsl(${(t / 5) % 360},100%,70%)` : `rgba(255,255,255,${0.5 + pulse * 0.5})`;
+      ctx.stroke();
+      ctx.font = `${r * 1.0}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(c.kind === 'hero' ? '🌟' : '💣', cx, cy + r * 0.05);
+    }
+  }
+
+  let last = performance.now();
+  function frame(t) {
+    const dt = Math.min(40, t - last);
+    last = t;
+    const w = CELL * COLS, h = CELL * ROWS;
+    ctx.clearRect(0, 0, w, h);
+    // マス目
+    ctx.fillStyle = 'rgba(255,255,255,.04)';
+    for (let x = 0; x < COLS; x++) for (let y = 0; y < ROWS; y++) if ((x + y) % 2 === 0) ctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+
+    const accel = 0.0045 * CELL / 50;
+    for (let x = 0; x < COLS; x++) {
+      for (let y = 0; y < ROWS; y++) {
+        const c = grid[x] && grid[x][y];
+        if (!c) continue;
+        if (c.dy > 0) {
+          c.vy += accel * dt;
+          c.dy -= c.vy * dt;
+          if (c.dy <= 0) { c.dy = 0; c.vy = 0; }
+        }
+        let r = CELL * 0.42;
+        if (c.pop) {
+          const p = (t - c.pop) / 180;
+          if (p >= 1) continue;
+          r *= 1 + p * 0.3;
+          ctx.globalAlpha = 1 - p;
+        }
+        const cx = x * CELL + CELL / 2, cy = y * CELL + CELL / 2 - c.dy;
+        if (cy < -CELL) { ctx.globalAlpha = 1; continue; }
+        drawPuni(cx, cy, r, c, t, hover && hover.has(key(x, y)));
+        ctx.globalAlpha = 1;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ================= UI =================
+  function buildTeam() {
+    const el = $('team');
+    el.innerHTML = '';
+    team = TEAM_DEF.map((d, i) => {
+      const m = document.createElement('div');
+      m.className = 'member';
+      m.innerHTML = `<div class="face" style="background:linear-gradient(160deg, ${LIGHT[d.color]}, ${HEX[d.color]} 55%, ${DARK[d.color]})">
+          ${d.icon}<span class="lv">${ATTR_JP[d.color]}</span></div>
+        <div class="gauge"><div></div></div><div class="mname">${d.name}</div>`;
+      m.title = `${d.skill}: ${d.desc}`;
+      m.addEventListener('click', () => useSkill(i));
+      el.appendChild(m);
+      return { ...d, gauge: 0, el: m };
+    });
+  }
+
+  function updateUI() {
+    const e = enemy();
+    $('stageInfo').textContent = `STAGE ${stage}　WAVE ${waveIdx + 1}/${waves.length || 3}`;
+    $('turnInfo').textContent = `ターン ${turn}`;
+    if (e) {
+      $('enemyHp').style.width = Math.max(0, e.hp / e.maxHp * 100) + '%';
+      $('enemyCount').textContent = e.count;
+      $('enemyTurn').classList.toggle('danger', e.count <= 1);
+    }
+    $('teamHp').style.width = Math.max(0, teamHp / TEAM_MAX_HP * 100) + '%';
+    $('teamHpText').textContent = `${Math.max(0, Math.ceil(teamHp))} / ${TEAM_MAX_HP}`;
+    for (const m of team) {
+      m.el.querySelector('.gauge > div').style.width = (m.gauge / m.cost * 100) + '%';
+      m.el.classList.toggle('ready', m.gauge >= m.cost);
+    }
+  }
+
+  function showEnemy() {
+    const e = enemy();
+    const el = $('enemy');
+    el.className = e.boss ? 'boss' : '';
+    el.textContent = e.icon;
+    const a = $('enemyAttr');
+    a.textContent = ATTR_JP[e.color];
+    a.style.background = HEX[e.color];
+    $('enemyLabel').textContent = (e.boss ? '【BOSS】' : '') + e.name;
+    updateUI();
+  }
+
+  function relPos(el) {
+    const a = el.getBoundingClientRect(), b = gameEl.getBoundingClientRect();
+    return [a.left - b.left + a.width / 2, a.top - b.top + a.height / 2];
+  }
+
+  function floatText(text, x, y, color, size) {
+    const d = document.createElement('div');
+    d.className = 'float';
+    d.textContent = text;
+    d.style.left = x + 'px';
+    d.style.top = y + 'px';
+    d.style.color = color;
+    d.style.fontSize = (size || 26) + 'px';
+    gameEl.appendChild(d);
+    setTimeout(() => d.remove(), 950);
+  }
+
+  function banner(text) {
+    const d = document.createElement('div');
+    d.className = 'banner';
+    d.textContent = text;
+    gameEl.appendChild(d);
+    setTimeout(() => d.remove(), 1150);
+  }
+
+  function cutin(m) {
+    const d = document.createElement('div');
+    d.className = 'cutin';
+    d.style.background = `linear-gradient(90deg, transparent, ${HEX[m.color]}dd 15%, ${HEX[m.color]}dd 85%, transparent)`;
+    d.innerHTML = `<span class="ic">${m.icon}</span><span>${m.skill}!!</span>`;
+    gameEl.appendChild(d);
+    setTimeout(() => d.remove(), 950);
+  }
+
+  function bounce(el, cls) {
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+  }
+
+  function overlay(html, btnText, onClick) {
+    const o = $('overlay');
+    o.innerHTML = html + (btnText ? `<button id="ovBtn">${btnText}</button>` : '');
+    o.classList.remove('hidden');
+    if (btnText) $('ovBtn').addEventListener('click', () => { o.classList.add('hidden'); onClick(); });
+  }
+
+  // ================= バトル =================
+  function multiplier(atk, def) {
+    if (ADV[atk] === def) return 2;
+    if (ADV[def] === atk) return 0.5;
+    return 1;
+  }
+
+  function makeStage(s) {
+    const list = [];
+    for (let w = 0; w < 3; w++) {
+      const boss = w === 2;
+      const pool = boss ? BOSSES : ENEMIES;
+      const [name, icon] = pool[rand(pool.length)];
+      const hp = Math.round((boss ? 2600 : 900) * (1 + 0.55 * (s - 1)));
+      const interval = boss ? 2 : 3;
+      list.push({ name, icon, boss, color: COLORS[rand(COLORS.length)], maxHp: hp, hp,
+                  atk: Math.round((boss ? 480 : 280) * (1 + 0.3 * (s - 1))), interval, count: interval });
+    }
+    return list;
+  }
+
+  async function dealDamage(m, amount, big) {
+    const e = enemy();
+    const mult = multiplier(m.color, e.color);
+    const dmg = Math.round(amount * mult * (0.9 + Math.random() * 0.2));
+    e.hp -= dmg;
+    bounce(m.el, 'bounce');
+    bounce($('enemy'), 'hit');
+    const [ex, ey] = relPos($('enemy'));
+    floatText(dmg.toLocaleString(), ex + (Math.random() * 80 - 40), ey + (Math.random() * 30 - 15),
+              mult > 1 ? '#ffe23b' : mult < 1 ? '#a8b4d0' : '#fff', big ? 40 : mult > 1 ? 30 : 24);
+    if (mult > 1 && big) floatText('WEAK!', ex, ey - 50, '#ff8a3d', 22);
+    updateUI();
+  }
+
+  async function startStage() {
+    waves = makeStage(stage);
+    waveIdx = 0;
+    showEnemy();
+    banner(`STAGE ${stage}`);
+    await sleep(600);
+    busy = false;
+  }
+
+  // 敵の撃破・ウェーブ進行を処理。戦闘継続なら false
+  async function checkEnemyDefeated() {
+    const e = enemy();
+    if (e.hp > 0) return false;
+    busy = true;
+    $('enemy').classList.add('dead');
+    await sleep(600);
+    if (waveIdx + 1 < waves.length) {
+      waveIdx++;
+      showEnemy();
+      banner(enemy().boss ? 'BOSS 出現!' : `WAVE ${waveIdx + 1}`);
+      await sleep(700);
+      busy = false;
+    } else {
+      const heal = Math.round(TEAM_MAX_HP * 0.3);
+      overlay(`<h2>STAGE ${stage} CLEAR!</h2><p>${turn} ターンでクリア</p><p>チームHPが ${heal} 回復した</p>`,
+              '次のステージへ', async () => {
+        stage++;
+        teamHp = Math.min(TEAM_MAX_HP, teamHp + heal);
+        await startStage();
+      });
+    }
+    return true;
+  }
+
+  async function enemyTurn() {
+    const e = enemy();
+    e.count--;
+    updateUI();
+    if (e.count > 0) return;
+    await sleep(150);
+    bounce($('enemy'), 'attack');
+    await sleep(200);
+    const dmg = Math.round(e.atk * (0.9 + Math.random() * 0.2) * (e.boss && Math.random() < 0.25 ? 1.6 : 1));
+    teamHp -= dmg;
+    bounce(gameEl, 'shake');
+    bounce($('flash'), 'on');
+    const [tx, ty] = relPos($('teamHpBar'));
+    floatText('-' + dmg, tx, ty - 10, '#ff5470', 30);
+    e.count = e.interval;
+    updateUI();
+    await sleep(400);
+    if (teamHp <= 0) {
+      busy = true;
+      overlay(`<h2>GAME OVER</h2><p>STAGE ${stage} WAVE ${waveIdx + 1} で力尽きた…</p>`, 'リトライ', async () => {
+        teamHp = TEAM_MAX_HP;
+        team.forEach(m => m.gauge = 0);
+        turn = 0;
+        initBoard();
+        await startStage();
+      });
+    }
+  }
+
+  async function onTap(x, y) {
+    if (busy) return;
+    const res = collectRemoval(x, y);
+    if (!res) return;
+    busy = true;
+    hover = null;
+    turn++;
+
+    // 大きく消したら特殊ぷにを生成
+    let spawn = null;
+    if (res.tappedNormal && res.groupSize >= BOMB_SIZE) {
+      spawn = res.groupSize >= HERO_SIZE ? 'hero' : 'bomb';
+      res.cells = res.cells.filter(([i, j]) => !(i === x && j === y));
+    }
+
+    const counts = {};
+    const now = performance.now();
+    for (const [i, j] of res.cells) {
+      const c = grid[i][j];
+      counts[c.color] = (counts[c.color] || 0) + 1;
+      c.pop = now;
+    }
+    if (spawn) grid[x][y].kind = spawn;
+
+    const total = res.cells.length;
+    const [bx, by] = relPos(canvas);
+    const r = canvas.getBoundingClientRect();
+    floatText(`${total} ぷに!`, bx - r.width / 2 + (x + 0.5) * CELL, by - r.height / 2 + (y + 0.5) * CELL,
+              '#fff', 18 + Math.min(16, total));
+    if (spawn) banner(spawn === 'hero' ? 'ヒーローぷに!' : 'ボムぷに!');
+    else if (total >= 15) banner('GREAT!!');
+
+    await sleep(190);
+    for (const [i, j] of res.cells) grid[i][j].removed = true;
+    applyGravity();
+
+    // 攻撃
+    for (const m of team) {
+      const n = counts[m.color];
+      if (!n) continue;
+      m.gauge = Math.min(m.cost, m.gauge + n);
+      await dealDamage(m, m.atk * n * (1 + 0.12 * n));
+      await sleep(110);
+    }
+    updateUI();
+    await waitFall();
+
+    if (await checkEnemyDefeated()) { ensureMoves(); return; }
+    await enemyTurn();
+    ensureMoves();
+    if (teamHp > 0) busy = false;
+  }
+
+  async function useSkill(i) {
+    const m = team[i];
+    if (busy || m.gauge < m.cost) return;
+    busy = true;
+    m.gauge = 0;
+    updateUI();
+    cutin(m);
+    await sleep(700);
+    const cells = [];
+    for (let x = 0; x < COLS; x++) for (let y = 0; y < ROWS; y++) cells.push([x, y]);
+    cells.sort(() => Math.random() - 0.5);
+
+    switch (m.color) {
+      case 'red':
+        await dealDamage(m, m.atk * 45, true);
+        break;
+      case 'blue': {
+        let n = 0;
+        for (const [x, y] of cells) {
+          if (n >= 8) break;
+          if (grid[x][y].color !== 'blue' && grid[x][y].kind === 'normal') { grid[x][y].color = 'blue'; n++; }
+        }
+        break;
+      }
+      case 'green': {
+        const heal = Math.round(TEAM_MAX_HP * 0.35);
+        teamHp = Math.min(TEAM_MAX_HP, teamHp + heal);
+        const [tx, ty] = relPos($('teamHpBar'));
+        floatText('+' + heal, tx, ty - 10, '#5dff8f', 30);
+        break;
+      }
+      case 'yellow': {
+        let n = 0;
+        for (const [x, y] of cells) {
+          if (n >= 3) break;
+          if (grid[x][y].kind === 'normal') { grid[x][y].kind = 'bomb'; n++; }
+        }
+        break;
+      }
+      case 'purple': {
+        enemy().count += 2;
+        const [ex, ey] = relPos($('enemyTurn'));
+        floatText('+2 ターン', ex, ey, '#d9b8ff', 24);
+        break;
+      }
+    }
+    updateUI();
+    await sleep(300);
+    if (await checkEnemyDefeated()) return;
+    busy = false;
+  }
+
+  // ================= 入力 =================
+  function cellAt(ev) {
+    const r = canvas.getBoundingClientRect();
+    const x = Math.floor((ev.clientX - r.left) / CELL), y = Math.floor((ev.clientY - r.top) / CELL);
+    return inBoard(x, y) ? [x, y] : null;
+  }
+  canvas.addEventListener('pointerdown', ev => {
+    ev.preventDefault();
+    const p = cellAt(ev);
+    if (p) onTap(p[0], p[1]);
+  });
+  canvas.addEventListener('pointermove', ev => {
+    if (ev.pointerType !== 'mouse' || busy) { hover = null; return; }
+    const p = cellAt(ev);
+    const res = p && collectRemoval(p[0], p[1]);
+    hover = res ? new Set(res.cells.map(([i, j]) => key(i, j))) : null;
+  });
+  canvas.addEventListener('pointerleave', () => { hover = null; });
+  window.addEventListener('resize', resize);
+
+  // ================= 起動 =================
+  resize();
+  buildTeam();
+  initBoard();
+  requestAnimationFrame(frame);
+  updateUI();
+  overlay(`<h1>ジャンプチ風<br>パズルバトル</h1>
+    <div class="help">
+      <p>● 同じ色のぷにが <b>2個以上</b> つながっている所をタップで消す</p>
+      <p>● 消した色と同じ属性のキャラが敵を攻撃！たくさん消すほど強力</p>
+      <p>● <b>6個以上</b>で 💣ボムぷに、<b>10個以上</b>で 🌟ヒーローぷに が出現</p>
+      <p>● ゲージが溜まったキャラをタップで <b>スキル</b> 発動（ターン消費なし）</p>
+      <p>● 属性相性：火→木→水→火、光⇔闇 (有利で2倍)</p>
+      <p>● 敵のカウントが0になると攻撃してくる。HPが0でゲームオーバー</p>
+    </div>`, 'スタート', startStage);
+})();
+</script>
+</body>
+</html>
